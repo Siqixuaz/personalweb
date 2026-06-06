@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>光影集 · 本地照片故事</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* 全局重置 + 字体继承原 index 风格 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1f2937;
+            line-height: 1.6;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        /* 通用容器 */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 2rem 3rem;
+        }
+
+        /* 头部与标题 (使用 Crimson Text) */
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+        .gallery-header h1 {
+            font-family: 'Crimson Text', serif;
+            font-size: 3.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+        .subhead {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
+            color: #5b6e8c;
+            border-top: 2px solid #e2e8f0;
+            display: inline-block;
+            padding-top: 0.8rem;
+            font-weight: 400;
+        }
+
+        /* 照片网格 */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        /* 卡片样式 (与原作品集卡片风格一致) */
+        .photo-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+        .photo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(15, 23, 42, 0.12);
+        }
+
+        /* 图片区域 */
+        .photo-img {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            display: block;
+            background: #eef2f6;
+        }
+
+        /* 文字说明区域 (使用 Inter / Crimson 组合) */
+        .photo-caption {
+            padding: 1.4rem 1.6rem 1.6rem;
+            background: white;
+        }
+        .photo-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.3rem;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .photo-index {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 500;
+            background: #eef2ff;
+            padding: 0.2rem 0.7rem;
+            border-radius: 40px;
+            color: #2c3e66;
+        }
+        .photo-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            line-height: 1.55;
+            color: #334155;
+            margin: 0.5rem 0 0.8rem;
+        }
+        .photo-meta {
+            display: flex;
+            gap: 1.2rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            color: #7c8ba0;
+            text-transform: uppercase;
+            border-top: 1px solid #edf2f7;
+            padding-top: 0.8rem;
+            margin-top: 0.3rem;
+            letter-spacing: 0.3px;
+        }
+
+        /* 提示条 & 页脚 */
+        .info-tip {
+            background: #eef2fa;
+            border-radius: 48px;
+            padding: 0.5rem 1.2rem;
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: #1e3a5f;
+            margin-top: 0.5rem;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 2rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            color: #5a6e8c;
+        }
+
+        /* 模态框 (lightbox) 风格统一 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 15, 35, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            max-width: 85vw;
+            max-height: 85vh;
+            background: #111;
+            border-radius: 28px;
+            overflow: hidden;
+            animation: fadeUp 0.2s ease;
+            cursor: default;
+        }
+        .modal-img {
+            max-width: 100%;
+            max-height: 70vh;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
+        }
+        .modal-caption {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 1rem 2rem;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+        }
+        .modal-caption h3 {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: white;
+        }
+        .modal-caption p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            color: #e2e8f0;
+        }
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 28px;
+            color: white;
+            font-size: 32px;
+            font-weight: 300;
+            background: rgba(0,0,0,0.5);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .close-modal:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(15px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        @media (max-width: 720px) {
+            .container {
+                padding: 1.5rem;
+            }
+            .gallery-header h1 {
+                font-size: 2.4rem;
+            }
+            .photo-grid {
+                gap: 1.2rem;
+            }
+            .photo-title {
+                font-size: 1.35rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .photo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="gallery-header">
+        <h1>2026盐城工学院毕业季 相册</h1>
+        <div class="subhead">借一整个夏日的绿意留念，收束数载寒窗，和母校、好友挥手，向着下一程人生迈步出发。</div>
+    </div>
+
+    <div class="photo-grid" id="photoGrid">
+
+    </div>
+
+    <footer>
+        🌿 朱钦迟 · Personal Academic Portfolio | © 2026 All Rights Reserved
+    </footer>
+</div>
+
+<!-- 模态框 -->
+<div id="lightbox" class="modal">
+    <span class="close-modal">&times;</span>
+    <div class="modal-content">
+        <img class="modal-img" id="modalImg" src="" alt="放大视图">
+        <div class="modal-caption">
+            <h3 id="modalTitle"></h3>
+            <p id="modalDesc"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const photosData = [
+        {
+            filename: "grad1.jpg",
+            title: "青枝赴前程",
+            description: "满墙翠绿爬山虎铺满背景，身着带精致国风刺绣云肩学士服，静静伫立定格瞬间。在盎然绿意里，留存大学收尾的从容模样，珍藏校园盛夏。",
+            location: "盐城工学院 · 图书馆",
+            date: "2026.06"
+        },
+        {
+            filename: "grad2.jpg",
+            title: "杜成道上，告别盛夏",
+            description: "林荫铺就绵长校道，梧桐枝叶筛下斑驳光影，手捧学士帽立身路中。盛夏林间清风相伴，用一张照片，和朝夕走过的校园小路好好道别。",
+            location: "盐城工学院 · 杜成大道",
+            date: "2026.06"
+        },
+        {
+            filename: "grad3.jpg",
+            title: "掷帽向晴空，少年赴山海",
+            description: "宿舍826，由左至右：江朝军、刘法坤、覃好、李涛、朱钦迟、龚友",
+            location: "盐城工学院 · 图书馆",
+            date: "2026.05"
+        },
+        {
+            filename: "grad4.jpg",
+            title: "檐下拾夏，毕业留章",
+            description: "繁花与绿树依偎在图书馆外墙，朝夕自习的图书馆作为背景，定格求学落幕时刻，珍藏独属于自己的毕业盛夏。",
+            location: "盐城工学院 · 图书馆",
+            date: "2026.05"
+        },
+
+    ];
+
+    const pathPrefix = "./";   // 图片路径前缀，默认为同目录（可改为 "./images/"）
+    const grid = document.getElementById('photoGrid');
+    const lightbox = document.getElementById('lightbox');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const closeBtn = document.querySelector('.close-modal');
+
+    // 渲染照片卡片
+    function renderGallery() {
+        if (!grid) return;
+        grid.innerHTML = '';
+        photosData.forEach((photo, idx) => {
+            const imgSrc = `${pathPrefix}${photo.filename}`;
+            const card = document.createElement('div');
+            card.className = 'photo-card';
+            // 储存元数据
+            card.setAttribute('data-img', imgSrc);
+            card.setAttribute('data-title', photo.title);
+            card.setAttribute('data-desc', photo.description);
+
+            card.innerHTML = `
+                <img class="photo-img" src="${imgSrc}" alt="${photo.title}" loading="lazy"
+                     onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'300\' viewBox=\'0 0 400 300\'%3E%3Crect width=\'100%25\' height=\'100%25\' fill=\'%23eef2f6\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%235b6e8c\' font-size=\'14\' font-family=\'Inter\'%3E📷 ${photo.filename} 未找到%3C/text%3E%3C/svg%3E';">
+                <div class="photo-caption">
+                    <div class="photo-title">
+                        ${escapeHtml(photo.title)}
+                        <span class="photo-index">${String(idx+1).padStart(2,'0')}</span>
+                    </div>
+                    <div class="photo-desc">${escapeHtml(photo.description)}</div>
+                    <div class="photo-meta">
+                        <span>📍 ${escapeHtml(photo.location)}</span>
+                        <span>📅 ${escapeHtml(photo.date)}</span>
+                    </div>
+                </div>
+            `;
+
+            card.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openLightbox(imgSrc, photo.title, photo.description);
+            });
+            grid.appendChild(card);
+        });
+    }
+
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // 灯箱逻辑
+    function openLightbox(src, title, desc) {
+        modalImg.src = src;
+        modalTitle.innerText = title;
+        modalDesc.innerText = desc;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        // 图片加载失败备用
+        modalImg.onerror = function() {
+            modalImg.src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'300\' viewBox=\'0 0 400 300\'%3E%3Crect width=\'100%25\' height=\'100%25\' fill=\'%23111\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%23aaa\' font-size=\'14\'%3E图片加载失败%3C/text%3E%3C/svg%3E';
+        };
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+            if (!lightbox.classList.contains('active')) modalImg.src = '';
+        }, 200);
+    }
+
+    closeBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
+    });
+
+    // 初始化
+    renderGallery();
+</script>
+</body>
+</html>

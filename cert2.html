@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>专业证书详情页 | 华中杯数学建模</title>
+    <!-- 导入学术字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1f2937;
+            line-height: 1.8;
+            font-weight: 400;
+            font-size: 16px;
+        }
+
+        /* 标题学术感 */
+        h1, h2, h3, h4, .section-title {
+            font-family: 'Crimson Text', serif;
+            letter-spacing: 0.5px;
+            color: #0f172a;
+        }
+
+        .section-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(15,23,42,0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(15,23,42,0.1);
+        }
+
+        .cert-image-wrapper {
+            background: #fefcf7;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cert-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.08);
+            border: 1px solid #ede8db;
+            transition: all 0.2s;
+            background: #faf8f3;
+        }
+
+        .image-caption {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.8rem;
+            letter-spacing: 0.3px;
+        }
+
+        .verify-link a {
+            color: #1e40af;       /* 深蓝色 */
+            text-decoration: none; /* 去掉下划线 */
+            font-weight: 500;
+            border-bottom: 1px dashed #1e40af;
+            transition: all 0.2s;
+        }
+
+        .verify-link a:hover {
+            color: #111827;       /* 悬停颜色 */
+            border-bottom: 1px solid #111827; /* 悬停下划线 */
+        }
+
+        .explanation-section {
+            margin-top: 2rem;
+        }
+
+        .explanation-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(15,23,42,0.05);
+            border: 1px solid #edf0f5;
+        }
+
+        .explanation-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .exp-main {
+            flex: 2;
+            min-width: 240px;
+        }
+
+        .exp-side {
+            flex: 1.2;
+            min-width: 200px;
+            background: #f8fafd;
+            border-radius: 16px;
+            padding: 1.2rem 1.4rem;
+        }
+
+        .exp-main p {
+            margin-bottom: 1rem;
+            color: #1f2937;
+            font-size: 0.98rem;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #b78c4a;
+            background: #fef6e6;
+            padding: 0.1rem 0.3rem;
+            border-radius: 12px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0 0.8rem;
+        }
+
+        .tag {
+            background: #eef3fc;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #2f5b8a;
+            letter-spacing: 0.2px;
+        }
+
+        .exp-side h4 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            border-left: 3px solid #b78c4a;
+            padding-left: 12px;
+            color: #1f2f3d;
+        }
+
+        .detail-list {
+            list-style: none;
+            margin-top: 0.5rem;
+        }
+
+        .detail-list li {
+            margin-bottom: 1rem;
+            font-size: 0.88rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            color: #3e5a6f;
+        }
+
+        .detail-list li strong {
+            font-weight: 600;
+            color: #2c3e4e;
+            min-width: 70px;
+        }
+
+        hr {
+            margin: 1.5rem 0 1rem;
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, #e2e8f0, transparent);
+        }
+
+        .footnote {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #9aaebf;
+            margin-top: 2rem;
+            border-top: 1px solid #eef2f7;
+            padding-top: 1.8rem;
+        }
+
+        @media (max-width: 720px) {
+            body {
+                padding: 1.2rem;
+            }
+            .cert-image-wrapper {
+                padding: 1rem;
+            }
+            .explanation-card {
+                padding: 1.5rem;
+            }
+            .section-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .exp-side {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="card">
+        <div class="cert-image-wrapper">
+            <img class="cert-image" 
+                 src="cert2.jpg"
+                 title="华中杯">
+        </div>
+        <!-- 极简辅助说明（非证书内容，仅提示替换） -->
+        <div class="image-caption">
+            “华中杯”全国大学生数学建模挑战赛 | 湖北省工业与应用数学学会 主办
+        </div>
+    </div>
+
+    <!-- 证书详情解释区域 (完整保留，简约详尽) -->
+    <div class="explanation-section">
+        <div class="explanation-card">
+            <div class="section-title">
+                竞赛简介
+            </div>
+            <div class="explanation-grid">
+                <div class="exp-main">
+                    <p>
+                        “华中杯”大学生数学建模挑战赛系原华中地区大学生数学建模邀请赛，2021年更名为“华中杯”大学生数学建模挑战赛。
+                        举办竞赛的目的在于激励学生学习数学的积极性， 拓展数学及相关学科知识面，提高学生独立分析、建模、求解、应用、写作等综合能力，
+                        鼓励广大青年学生学以致用， 提升学生对数学科学理论及应用价值的认识，加强数学与经济金融、管理科学、计算机等学科之间的联系，
+                        促进教育教学改革，培养学生的创新意识与团队精神。
+                    </p>
+                    <p>
+                        第十七届“华中杯”大学生数学建模挑战赛于2025年4月17日-4月20日顺利举行，来自全国304所高校共4213支队伍报名参赛。
+                        竞赛组委会专家组成员和特邀专家共36人，经匿名评审，评选出拟获 特等奖1队，一等奖130队（本科组126队，专科组4队），
+                        二等奖423队（本科组411队，专科组12队），三等奖839队（本科组809队，专科组30队），北太天元创新奖3队，企业冠名奖6队，
+                        优秀组织单位奖18个，成功参赛奖若干，不合格队伍若干
+                    </p>
+                    <div class="verify-link">
+                        <a href="http://www.hzbmmc.com/views/award/award-item.html?id=1925088830569799682&navigate=inform"
+                           target="_blank" rel="noopener noreferrer">验证标识: http://www.hzbmmc.com/views/award
+                        </a>
+                    </div>
+                </div>
+                <div class="exp-side">
+                    <h4>竞赛组织单位</h4>
+                    <ul class="detail-list">
+                        <li><strong>主办单位</strong> 湖北省工业与应用数学学会</li>
+                        <li>
+                            <strong>协办单位</strong>
+                            武汉大学、华中科技大学、华中师范大学、中南财经政法大学、华中农业大学、
+                            中国地质大学（武汉）、武汉理工大学、湖北大学、武汉科技大学、中南民族大学
+                        </li>
+                        <li><strong>支持单位</strong> 北太振寰（重庆）科技有限公司</li>
+                        <li><strong>承办单位</strong> 泰迪智能科技（武汉）有限公司</li>
+                    </ul>
+
+                    <h4>获奖率</h4>
+                    <ul class="detail-list">
+                        <li>
+                            特等奖每道题不超过一支队伍，每支队伍获得奖金5000元；
+                            一等奖不超过报名队数的3%，二等奖不超过报名队数的10%，三等奖不超过报名队数的20%。
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="footnote">
+        <span>朱钦迟 · Personal Academic Portfolio © 2026 All Rights Reserved</span>
+    </div>
+</div>
+</body>
+</html>

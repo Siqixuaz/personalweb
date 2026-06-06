@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>朱钦迟 · 个人主页</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1f2937;
+            line-height: 1.9;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        /* 导航栏 */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 15, 35, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 1rem 1.2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        nav a:hover {
+            color: #7dafff;
+        }
+
+        /* 英雄区 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('mainbkgd.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Crimson Text', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero h2 {
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .hero p {
+            max-width: 800px;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* 通用区块 */
+        section {
+            padding: 80px 8%;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #0f172a;
+        }
+
+        /* 卡片通用样式 */
+        .card {
+            background: white;
+            padding: 2.2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(15,23,42,0.08);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* 教育折叠卡片 */
+        .edu-card {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: 0.2s;
+        }
+
+        .edu-card:hover {
+            background: #f0f4ff;
+        }
+
+        .edu-detail {
+            max-height: 0;
+            overflow: hidden;
+            transition: 0.5s ease;
+            background: white;
+            padding: 0 2rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        .edu-detail.active {
+            max-height: 700px;
+            padding: 1.8rem 2rem;
+        }
+
+        .edu-detail img {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+
+        /* 技能网格 */
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .skill {
+            background: #102040;
+            color: white;
+            padding: 0.9rem;
+            border-radius: 40px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* 竞赛区域复用skills网格 + card内部 */
+        .competition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+        }
+
+        .competition-card {
+            background: white;
+            border-radius: 20px;
+            text-align: center;
+            padding-bottom: 1.2rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+        }
+
+        .competition-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .competition-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .competition-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .competition-card h3 {
+            margin: 1rem 0 0.5rem;
+            color: #102040;
+        }
+
+        /* 实践经历（折叠 + 图片） */
+        .exp-card {
+            background: white;
+            padding: 1.2rem 2rem;
+            margin-bottom: 10px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .exp-card:hover {
+            background: #f0f4ff;
+        }
+
+        .exp-sub {
+            display: block;
+            color: #666;
+            font-size: 0.85rem;
+            margin-top: 6px;
+        }
+
+        .exp-detail {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: 0.5s ease;
+            margin-bottom: 1.8rem;
+            background: #fff;
+            border-radius: 18px;
+            padding: 0 1.8rem;
+        }
+
+        .exp-detail.active {
+            max-height: 600px;
+            padding: 1.8rem;
+        }
+
+        .exp-detail-left img {
+            width: 220px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        .exp-detail-right {
+            flex: 1;
+        }
+
+        /* 奖状列表 */
+        .award-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .award-list li {
+            background: #eef2fa;
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            background: #102040;
+            color: white;
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        footer p {
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        /* ========= 个人动态模块 (最新两条 + 更多按钮) ========= */
+        .news-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.75rem;
+        }
+        .news-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0;
+            font-family: 'Crimson Text', serif;
+        }
+        .more-btn {
+            background: transparent;
+            border: 1.5px solid #102040;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #102040;
+            text-decoration: none;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .more-btn:hover {
+            background: #102040;
+            color: white;
+            border-color: #102040;
+        }
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        .news-item {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.25s ease, box-shadow 0.25s;
+        }
+        .news-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.12);
+        }
+        .news-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .news-content {
+            padding: 1.5rem;
+        }
+        .news-date {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #5b6e8c;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .news-content h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #0f172a;
+            font-family: 'Crimson Text', serif;
+        }
+        .news-desc {
+            color: #334155;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 5%;
+            }
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            .exp-detail-left img {
+                width: 100%;
+                height: auto;
+                max-height: 260px;
+            }
+            .exp-detail {
+                flex-direction: column;
+            }
+            .news-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .news-header {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+        }
+        h1,h2,h3,h4,.section-title{
+            font-family: 'Crimson Text', serif;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a href='#about'>关于我</a></li>
+        <li><a href='#news'>个人动态</a></li>
+        <li><a href='#education'>教育背景</a></li>
+        <li><a href='#awards'>荣誉奖项</a></li>
+        <li><a href='#competition'>学术竞赛</a></li>
+        <li><a href='#experience'>实践经历</a></li>
+        <li><a href='#skills'>专业技能</a></li>
+    </ul>
+</nav>
+
+<header class='hero'>
+    <div class='hero-content'>
+        <img src='picture1.jpg' alt="朱钦迟">
+        <h1>朱钦迟</h1>
+        <h2>Data Science · Leadership · Social Innovation</h2>
+        <p>朱钦迟，男，共青团员，南京师范大学教育科学学院教育学在读研究生</p>
+        <p>江苏省人工智能协会会员、联合国教科文组织自然教育研学导师</p>
+    </div>
+</header>
+
+<!-- ==================================== 关于我 ======================================= -->
+<section id='about'>
+    <h2 class='section-title'>About Me</h2>
+    <div class='card'>
+        <p>
+            朱钦迟，盐城工学院数据科学与大数据技术专业2026届本科生，共青团员。在校期间专业成绩优异，
+            曾获国家励志奖学金及多次校级奖学金，并作为交换生赴马来西亚理工大学（QS153）学习。
+            具备扎实的数据分析与编程能力，熟练运用Python、SQL、Excel等工具，多次在数学建模竞赛中获全国及省级一等奖。
+            曾任班长、学生会部长、青年志愿者协会主席等职务，带领团队获“江苏省百佳学生社团”等荣誉，组织策划大型志愿服务活动超50场，
+            服务时长逾7万小时。实习经历丰富，曾在盐城市数据局、黄海湿地研究院等单位实践，积累政务数据与制造业数据分析经验。
+            积极参与“三下乡”等社会实践，获省级表彰，事迹被央广网等主流媒体报道。具备出色的组织协调能力与跨学科视野，致力于以数据科学服务社会发展。
+        </p>
+    </div>
+</section>
+
+
+<!-- ============================= 个人动态区域 超链接“news.html” ============================ -->
+
+<section id='news'>
+    <div class="news-header">
+        <h2>Personal News</h2>
+        <a href="news.html" class="more-btn">更多动态 →</a>
+    </div>
+
+    <a href="2601.html" style="display: block; text-decoration: none; color: inherit;">
+        <div class="news-grid">
+            <div class="news-item">
+                <img class="news-img" src='grad3.jpg' alt="UTM Exchange">
+                <div class="news-content">
+                    <div class="news-date">📅 2026年5月</div>
+                    <h3>2026盐城工学院毕业季 相册</h3>
+                    <p class="news-desc">以图书馆、林荫、青藤为证，在盛夏定格毕业瞬间，从此携四年书卷与同窗热忱，辞别校园，奔赴山海新程。</p>
+                </div>
+        </div>
+    </a>
+
+        <!-- 动态2: 华中杯数学建模全国一等奖（第二个近期动态） -->
+    <a href="cert2.html" style="display: block; text-decoration: none; color: inherit;">
+        <div class="news-item">
+            <img class="news-img" src='cert2.jpg' alt="华中杯数学建模">
+            <div class="news-content">
+                <div class="news-date">🏆 2025年5月</div>
+                <h3>“华中杯”数学建模挑战赛全国一等奖</h3>
+                <p class="news-desc">第十七届竞赛中斩获全国一等奖（前3%），构建交通流量预测模型，展现数据挖掘与算法创新实力。</p>
+            </div>
+        </div>
+    </a>
+
+    </div>
+</section>
+
+<!-- ============================= 个人获奖区域 超链接“awards.html” ============================ -->
+<section id='competition'>
+    <div class="news-header">
+        <h2>Academic Competitions</h2>
+        <a href="awards.html" class="more-btn">更多获奖 →</a>
+    </div>
+
+    <a href="cert1.html" style="display: block; text-decoration: none; color: inherit;">
+        <div class="news-grid">
+            <div class="news-item">
+                <img class="news-img" src='cert4.jpg' alt="五一数学建模">
+                <div class="news-content">
+                    <div class="news-date">📅 2024年5月</div>
+                    <h3><small>2024年（第二十一届）</small> 五一数学建模竞赛</h3>
+                    <p class="news-desc">全国一等奖（前5%）</p>
+                </div>
+            </div>
+    </a>
+
+    <!-- 动态2: 华中杯数学建模全国一等奖（第二个近期动态） -->
+    <a href="cert2.html" style="display: block; text-decoration: none; color: inherit;">
+        <div class="news-item">
+            <img class="news-img" src='cert2.jpg' alt="华中杯数学建模">
+            <div class="news-content">
+                <div class="news-date">🏆 2025年5月</div>
+                <h3><small>2025年（第十七届）</small> “华中杯”数学建模挑战赛</h3>
+                <p class="news-desc">全国一等奖（前3%）</p>
+            </div>
+        </div>
+    </a>
+
+</section>
+
+<!-- ================================== 教育背景板块 ===================================== -->
+
+<section id='education'>
+    <h2 class='section-title'>Education</h2>
+
+    <div class='edu-card' onclick="toggleDetail('ycit')">
+        <h3>盐城工学院 <small>Yancheng Institute of Technology</small></h3>
+        <p>2022.09-2026.06 | 080910T 数据科学与大数据技术 (B.Sc.)</p>
+    </div>
+    <div id='ycit' class='edu-detail'>
+        <img src='school1.jpg' alt="盐城工学院">
+        <h4>🏅 专业排名</h4>
+        <p>平均分80.12，平均学分绩点2.73，总排名29/78（前40%） </p>
+        <p>2025春学期专业第一（1/78）</p>
+        <h4>📚 荣誉奖励</h4>
+        <p>国家励志奖学金、校百佳青年学生 ×2、校一等奖学金 ×1、校三等奖学金 ×3</p>
+        <h4>📖 核心课程</h4>
+        <p>Python数据分析、机器学习、数据库原理、数学建模、统计计算、大数据分析工具</p>
+    </div>
+
+    <div class='edu-card' onclick="toggleDetail('utmEdu')">
+        <h3>马来西亚理工大学 | <small>Universiti Teknologi Malaysia</small></h3>
+        <p>2025.01-2025.02 Data Science Winter Camp (Exchange) </p>
+    </div>
+    <div id='utmEdu' class='edu-detail'>
+        <img src='utm.jpg' alt="UTM交流">
+        <h4>🏅 获得2025年度盐城工学院出国（境）交流奖学金</h4>
+        <p>学习使用 Python、Power BI 完成数据分析与可视化开发。独立完成数据获取、清洗、建模、仪表板开发的全流程。</p>
+    </div>
+
+    <div class='edu-card' onclick="toggleDetail('nnu')">
+        <h3>南京师范大学 <small>Nanjing Normal University</small></h3>
+        <p>2026.09-2029.06 | 0401Z4 教育信息工程 </p>
+    </div>
+    <div id='nnu' class='edu-detail'>
+        <img src='nnu.jpg' alt="南京师范大学">
+        <h4>🏅 考研成绩</h4>
+        <p>总分：376，初试排名：4 || 思想政治理论：58，英语（一）：62，专业课：276</p>
+    </div>
+
+</section>
+
+<!-- 荣誉奖项 -->
+<section id='awards'>
+    <h2 class='section-title'>Honors & Awards</h2>
+    <div class='card'>
+        <ul class="award-list">
+            <li>国家励志奖学金</li><li>校一等奖学金 ×1</li><li>校三等奖学金 ×3</li>
+            <li>百佳青年学生（连续两年）</li><li>优秀学生干部</li><li>优秀共青团员</li><li>优秀志愿者</li>
+        </ul>
+    </div>
+</section>
+
+
+<!-- 实践经历 (折叠图片+文本) -->
+<section id='experience'>
+    <h2 class='section-title'>Experience</h2>
+
+    <div class="exp-card" onclick="toggleExp('exp1')">
+        <h3>盐城市数据局</h3>
+        <span class="exp-sub">2025.07-2025.08 · Data Application Assistant</span>
+    </div>
+    <div id="exp1" class="exp-detail">
+        <div class="exp-detail-left"><img src="experience1.jpg" alt="数据局实习"></div>
+        <div class="exp-detail-right"><p>参与区级政务数据平台运维、数据清洗、分类与核查工作，提升政务数据质量。</p></div>
+    </div>
+
+    <div class="exp-card" onclick="toggleExp('exp2')">
+        <h3>江苏黄海湿地研究院</h3>
+        <span class="exp-sub">2024.07-2024.08 · Research Intern</span>
+    </div>
+    <div id="exp2" class="exp-detail">
+        <div class="exp-detail-left"><img src="experience2.jpg" alt="湿地研究院"></div>
+        <div class="exp-detail-right"><p>完成科研资料数字化整理，生态监测数据分析，协助科普活动筹备与执行。</p></div>
+    </div>
+
+    <div class="exp-card" onclick="toggleExp('exp3')">
+        <h3>扬州市宝应县安宜镇政府</h3>
+        <span class="exp-sub">2023.07-2023.08 · Government Intern </span>
+    </div>
+    <div id="exp3" class="exp-detail">
+        <div class="exp-detail-left"><img src="experience3.jpg" alt="政府实习"></div>
+        <div class="exp-detail-right"><p>处理公文收发、信息录入，参与社区党建活动策划与执行。</p></div>
+    </div>
+
+    <div class="exp-card" onclick="toggleExp('exp4')">
+        <h3>江苏祥鸾电气工程有限公司</h3>
+        <span class="exp-sub">2024.01-2024.02 · Project Intern</span>
+    </div>
+    <div id="exp4" class="exp-detail">
+        <div class="exp-detail-left"><img src="experience4.jpg" alt="电气工程实习"></div>
+        <div class="exp-detail-right"><p>系统整理项目档案，建立电子化文档档案，协助跨部门信息同步与项目推进。</p></div>
+    </div>
+</section>
+
+<!-- 专业技能 -->
+<section id='skills'>
+    <h2 class='section-title'>Skills</h2>
+    <div class='skills'>
+        <div class='skill'>Python</div><div class='skill'>MySQL</div><div class='skill'>Power BI</div>
+        <div class='skill'>SPSS</div><div class='skill'>Matlab</div><div class='skill'>Origin</div>
+        <div class='skill'>Data Analysis</div><div class='skill'>Machine Learning</div>
+    </div>
+</section>
+
+<footer>
+    <h3>朱钦迟 · Personal Academic Portfolio</h3>
+    <p>Email：zqc0225nnu@outlook.com</p>
+    <p>© 2026 All Rights Reserved</p>
+</footer>
+
+<script>
+    function toggleDetail(id) {
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle('active');
+    }
+    function toggleExp(id) {
+        const detail = document.getElementById(id);
+        if (detail) detail.classList.toggle('active');
+    }
+</script>
+</body>
+</html>

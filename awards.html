@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Academic Competitions Awards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* 与原 awards.html 完全一致的字体 */
+            font-family: "Georgia", "Times New Roman", serif;
+            background: #f8f9fa;
+            color: #222;
+            padding: 2.5rem 1.8rem;
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* 主标题 (保留原 awards 风格的标题线) */
+        .main-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            border-bottom: 3px solid #222;
+            display: inline-block;
+            padding-bottom: 10px;
+            letter-spacing: -0.3px;
+            color: #222;
+        }
+
+        .subhead {
+            color: #555;
+            margin-bottom: 2.5rem;
+            font-size: 1rem;
+            margin-top: 0.75rem;
+            font-style: normal;
+            border-left: none;
+            padding-left: 0;
+        }
+
+        /* 区块间隔 */
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 1.8rem;
+            border-bottom: 2px solid #e2e6ea;
+            padding-bottom: 0.6rem;
+        }
+
+        .section-header h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #222;
+            letter-spacing: -0.2px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-badge {
+            background: #e9ecef;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        /* 横版证书网格：每排2个 */
+        .cert-grid-horizontal {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        /* 竖版证书网格：每排3个 */
+        .cert-grid-vertical {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        /* 统一卡片样式 (原 awards 风格简洁卡片 + 细微阴影) */
+        .cert-card {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.35s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 图片容器：完全尊重原比例，width:100% height:auto，不裁切 */
+        .cert-img {
+            width: 100%;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cert-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .cert-card:hover .cert-img img {
+            transform: scale(1.02);
+        }
+
+        /* 卡片内容区 */
+        .cert-info {
+            padding: 1.5rem 1.4rem 1.6rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cert-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 0.75rem;
+            color: #222;
+        }
+
+        .cert-desc {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 1.2rem;
+            border-left: 2px solid #ddd;
+            padding-left: 0.75rem;
+        }
+
+        /* 按钮样式 (保留原 awards 中的 .cert1-link / .cert2-link 风格) */
+        .btn-view {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: transparent;
+            border: 2px solid #222;
+            color: #222;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.5rem 1.3rem;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            width: fit-content;
+            background-color: white;
+        }
+
+        .btn-view:hover {
+            background: #222;
+            color: white;
+            border-color: #222;
+        }
+
+        /* 响应式 */
+        @media (max-width: 950px) {
+            body {
+                padding: 1.8rem 1.2rem;
+            }
+            .cert-grid-horizontal {
+                gap: 1.5rem;
+            }
+            .cert-grid-vertical {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 780px) {
+            .cert-grid-horizontal,
+            .cert-grid-vertical {
+                grid-template-columns: 1fr;
+            }
+            .main-title {
+                font-size: 2rem;
+            }
+            .section-header h3 {
+                font-size: 1.35rem;
+            }
+            .cert-info {
+                padding: 1.2rem;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .cert-title {
+                font-size: 1.05rem;
+            }
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #6c757d;
+            border-top: 1px solid #e9ecef;
+            padding-top: 2rem;
+            font-family: inherit;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="main-title">Academic Competitions</div>
+
+
+    <!-- 横版证书组：每行2个 (数学建模 + 综合竞赛) -->
+    <div class="section">
+        <div class="section-header"></div>
+
+        <div class="cert-grid-horizontal">
+
+            <!-- 证书1：五一数学建模 全国一等奖 -->
+            <div class="cert-card">
+                <div class="cert-img">
+                    <img src="cert1.jpg" alt="五一数学建模竞赛全国一等奖证书">
+                </div>
+                <div class="cert-info">
+                    <div class="cert-title">2024年第二十一届五一数学建模竞赛<br>全国一等奖</div>
+                    <div class="cert-desc">江苏省工业与应用数学学会 中国矿业大学 主办<br>🏅 江苏省2024年、2025年省级赛事目录</div>
+                    <a href="cert1.html" class="btn-view">查看详情 →</a>
+                </div>
+            </div>
+
+            <!-- 证书2：华中杯 全国一等奖 -->
+            <div class="cert-card">
+                <div class="cert-img">
+                    <img src="cert2.jpg" alt="华中杯大学生数学建模挑战赛一等奖">
+                </div>
+                <div class="cert-info">
+                    <div class="cert-title">2025年第十七届“华中杯”大学生数学建模挑战赛<br>本科组全国一等奖</div>
+                    <div class="cert-desc">湖北省工业与应用数学学会 主办</div>
+                    <a href="cert2.html" class="btn-view">查看详情 →</a>
+                </div>
+            </div>
+
+            <!-- 证书3：华数杯 全国一等奖 -->
+            <div class="cert-card">
+                <div class="cert-img">
+                    <img src="cert3.jpg" alt="华数杯大学生数学建模竞赛一等奖">
+                </div>
+                <div class="cert-info">
+                    <div class="cert-title">2025年第六届“华数杯”大学生数学建模竞赛<br>本科组全国一等奖</div>
+                    <div class="cert-desc">中国未来研究会 天津市未来与预测科学研究会 主办</div>
+                </div>
+            </div>
+
+            <!-- 证书4：统计建模大赛 江苏赛区三等奖 (原cert5.jpg) -->
+            <div class="cert-card">
+                <div class="cert-img">
+                    <img src="cert5.jpg" alt="全国大学生统计建模大赛江苏赛区三等奖">
+                </div>
+                <div class="cert-info">
+                    <div class="cert-title">2025年（第十一届）全国大学生统计建模大赛<br>江苏赛区本科生组三等奖</div>
+                    <div class="cert-desc">中国统计教育学会 主办</div>
+                </div>
+            </div>
+
+            <!-- 证书5：LSCAT 德译中一等奖 (原cert4.jpg) -->
+            <div class="cert-card">
+                <div class="cert-img">
+                    <img src="cert4.jpg" alt="LSCAT杯江苏省笔译大赛德译中一等奖">
+                </div>
+                <div class="cert-info">
+                    <div class="cert-title">2024年第十届“LSCAT”杯江苏省笔译大赛<br>德译中一等奖</div>
+                    <div class="cert-desc">江苏省翻译协会 主办</div>
+                </div>
+            </div>
+
+            <!-- 证书6：LSCAT 英译汉 2023 三等奖 -->
+            <div class="cert-card">
+                <div class="cert-img">
+                    <img src="cert6.jpg" alt="LSCAT英译汉本科组三等奖2023">
+                </div>
+                <div class="cert-info">
+                    <div class="cert-title">2023年第九届“LSCAT”杯江苏省笔译大赛<br>英译汉本科组三等奖</div>
+                    <div class="cert-desc">江苏省翻译协会 主办</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 竖版证书组：每行3个-->
+    <div class="section">
+
+        <div class="cert-grid-vertical">
+
+            <div class="cert-card">
+                <div class="cert-img">
+                    <img src="cert7.jpg" alt="2023大英赛">
+                </div>
+                <div class="cert-info">
+                    <div class="cert-title">2023年全国大学生英语竞赛(NECCS)<br>C类二等奖</div>
+                    <div class="cert-desc">国际英语外语教师协会 中国英语外语教师协会 主办</div>
+                </div>
+            </div>
+
+            <div class="cert-card">
+                <div class="cert-img">
+                    <img src="cert8.jpg" alt="2023大翻赛">
+                </div>
+                <div class="cert-info">
+                    <div class="cert-title">2023年全国大学生英语翻译大赛(NETCCS)<br>C类三等奖</div>
+                    <div class="cert-desc">国际英语外语教师协会 中国英语外语教师协会 主办</div>
+                </div>
+            </div>
+
+
+            <div class="cert-card">
+                <div class="cert-img">
+                    <img src="cert9.jpg" alt="电工杯">
+                </div>
+                <div class="cert-info">
+                    <div class="cert-title">第十七届“电工杯”全国大学生数学建模竞赛<br>全国三等奖</div>
+                    <div class="cert-desc">江苏省翻译协会 主办</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        ✨ 朱钦迟 · Personal Academic Portfolio | © 2026 All Rights Reserved
+    </div>
+</div>
+</body>
+</html>

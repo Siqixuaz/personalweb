@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>公告导航 · 简约目录</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5f7fb;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            color: #1a2c3e;
+            line-height: 1.5;
+            padding: 2rem 1.5rem;
+        }
+
+        /* 主容器 */
+        .notice-container {
+            max-width: 880px;
+            margin: 0 auto;
+        }
+
+        /* 头部区域 */
+        .notice-header {
+            margin-bottom: 2rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #e9edf2;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .notice-header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #1f3b4c, #2c5a7a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .notice-badge {
+            font-size: 0.75rem;
+            background: #eef2f8;
+            padding: 0.25rem 0.9rem;
+            border-radius: 30px;
+            color: #4f6f8f;
+            font-weight: 500;
+        }
+
+        /* 列表容器 — 干净优雅 */
+        .notice-list {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.02);
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+
+        /* 每条通知项 — 可点击链接 */
+        .notice-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.1rem 1.8rem;
+            border-bottom: 1px solid #eff2f8;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* 最后一条无底边框 */
+        .notice-item:last-child {
+            border-bottom: none;
+        }
+
+        /* 悬停效果 */
+        .notice-item:hover {
+            background: #fafcff;
+            padding-left: 2rem;
+            padding-right: 1.6rem;
+        }
+
+        .notice-item:hover .notice-title {
+            color: #2b6a9e;
+        }
+
+        .notice-item:hover .arrow-icon {
+            opacity: 1;
+            transform: translateX(3px);
+            color: #2b6a9e;
+        }
+
+        /* 左侧主要信息 */
+        .notice-info {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .notice-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #1f3b4c;
+            transition: color 0.2s;
+            line-height: 1.4;
+            display: inline-block;
+        }
+
+        /* 可选副标题/描述（简约） */
+        .notice-desc {
+            font-size: 0.75rem;
+            color: #8b9bb0;
+            margin-top: 0.2rem;
+            display: block;
+        }
+
+        /* 右侧区域: 日期 + 箭头 */
+        .notice-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .notice-date {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: #9aabbf;
+            background: #f8fafd;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            letter-spacing: 0.2px;
+        }
+
+        .arrow-icon {
+            font-size: 1rem;
+            opacity: 0.5;
+            transition: all 0.2s;
+            color: #8da0b0;
+        }
+
+        /* 细微点缀分割线 */
+        .footer-note {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.7rem;
+            color: #9bafc4;
+            border-top: 1px solid #eef2f7;
+            padding-top: 1.5rem;
+        }
+
+        /* 响应式: 小屏幕下调整为列式 */
+        @media (max-width: 600px) {
+            body {
+                padding: 1.2rem;
+            }
+            .notice-item {
+                padding: 1rem 1.2rem;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .notice-item:hover {
+                padding-left: 1.3rem;
+            }
+            .notice-meta {
+                width: 100%;
+                justify-content: space-between;
+                margin-top: 0.4rem;
+            }
+            .notice-header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="notice-container">
+    <div class="notice-header">
+        <h1>个人动态</h1>
+        <div class="notice-badge">最新发布 · 目录导航</div>
+    </div>
+
+    <div class="notice-list">
+        <!-- 每条都是链接，可指向内部html或外部网站 -->
+        <a href="2601.html" class="notice-item" target="_blank" rel="noopener noreferrer">
+            <div class="notice-info">
+                <span class="notice-title"><span style="font-weight: bold; color: #FF0000;">new</span> 2026盐城工学院毕业季 相册</span>
+                <span class="notice-desc">借一整个夏日的绿意留念，收束数载寒窗，和母校、好友挥手，向着下一程人生迈步出发。</span>
+            </div>
+            <div class="notice-meta">
+                <span class="notice-date">2026-06-05</span>
+                <span class="arrow-icon">↗</span>
+            </div>
+        </a>
+
+        <a href="cert2.html" class="notice-item" target="_blank" rel="noopener noreferrer">
+            <div class="notice-info">
+                <span class="notice-title">"华中杯"数学建模挑战赛全国一等奖</span>
+                <span class="notice-desc">第十七届竞赛中斩获全国一等奖（前3%），构建交通流量预测模型，展现数据挖掘与算法创新实力。</span>
+            </div>
+            <div class="notice-meta">
+                <span class="notice-date">2025-05-26</span>
+                <span class="arrow-icon">↗</span>
+            </div>
+        </a>
+
+        <a href="2602.html" class="notice-item" target="_blank" rel="noopener noreferrer">
+            <div class="notice-info">
+                <span class="notice-title">朱钦迟代表协会受邀参加第八届全国净滩公益活动盐城分会场启动仪式</span>
+                <span class="notice-desc">朱钦迟代表盐城工学院徐秀娟黄海湿地保护志愿者协会受邀参加第八届全国净滩公益活动盐城分会场启动仪式</span>
+            </div>
+            <div class="notice-meta">
+                <span class="notice-date">2025-05-26</span>
+                <span class="arrow-icon">↗</span>
+            </div>
+        </a>
+
+
+    </div>
+
+    <div class="footer-note">
+        ✨ 共3条动态 | 点击条目跳转详情页（新标签打开）
+    </div>
+</div>
+</body>
+</html>

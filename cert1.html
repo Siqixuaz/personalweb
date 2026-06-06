@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>专业证书详情页 | 五一数学建模</title>
+    <!-- 导入学术字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1f2937;
+            line-height: 1.8;
+            font-weight: 400;
+            font-size: 16px;
+        }
+
+        /* 标题学术感 */
+        h1, h2, h3, h4, .section-title {
+            font-family: 'Crimson Text', serif;
+            letter-spacing: 0.5px;
+            color: #0f172a;
+        }
+
+        .section-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(15,23,42,0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(15,23,42,0.1);
+        }
+
+        .cert-image-wrapper {
+            background: #fefcf7;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cert-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.08);
+            border: 1px solid #ede8db;
+            transition: all 0.2s;
+            background: #faf8f3;
+        }
+
+        .image-caption {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.8rem;
+            letter-spacing: 0.3px;
+        }
+
+        .verify-link a {
+            color: #1e40af;       /* 深蓝色 */
+            text-decoration: none; /* 去掉下划线 */
+            font-weight: 500;
+            border-bottom: 1px dashed #1e40af;
+            transition: all 0.2s;
+        }
+
+        .verify-link a:hover {
+            color: #111827;       /* 悬停颜色 */
+            border-bottom: 1px solid #111827; /* 悬停下划线 */
+        }
+
+        .explanation-section {
+            margin-top: 2rem;
+        }
+
+        .explanation-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(15,23,42,0.05);
+            border: 1px solid #edf0f5;
+        }
+
+        .explanation-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .exp-main {
+            flex: 2;
+            min-width: 240px;
+        }
+
+        .exp-side {
+            flex: 1.2;
+            min-width: 200px;
+            background: #f8fafd;
+            border-radius: 16px;
+            padding: 1.2rem 1.4rem;
+        }
+
+        .exp-main p {
+            margin-bottom: 1rem;
+            color: #1f2937;
+            font-size: 0.98rem;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #b78c4a;
+            background: #fef6e6;
+            padding: 0.1rem 0.3rem;
+            border-radius: 12px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0 0.8rem;
+        }
+
+        .tag {
+            background: #eef3fc;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #2f5b8a;
+            letter-spacing: 0.2px;
+        }
+
+        .exp-side h4 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            border-left: 3px solid #b78c4a;
+            padding-left: 12px;
+            color: #1f2f3d;
+        }
+
+        .detail-list {
+            list-style: none;
+            margin-top: 0.5rem;
+        }
+
+        .detail-list li {
+            margin-bottom: 1rem;
+            font-size: 0.88rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            color: #3e5a6f;
+        }
+
+        .detail-list li strong {
+            font-weight: 600;
+            color: #2c3e4e;
+            min-width: 70px;
+        }
+
+        hr {
+            margin: 1.5rem 0 1rem;
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, #e2e8f0, transparent);
+        }
+
+        .footnote {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #9aaebf;
+            margin-top: 2rem;
+            border-top: 1px solid #eef2f7;
+            padding-top: 1.8rem;
+        }
+
+        @media (max-width: 720px) {
+            body {
+                padding: 1.2rem;
+            }
+            .cert-image-wrapper {
+                padding: 1rem;
+            }
+            .explanation-card {
+                padding: 1.5rem;
+            }
+            .section-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .exp-side {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="card">
+        <div class="cert-image-wrapper">
+            <img class="cert-image"
+                 src="cert1.jpg"
+                 title="五一杯">
+        </div>
+        <div class="image-caption">
+            五一数学建模挑战赛 | 江苏省工业与应用数学学会 主办
+        </div>
+    </div>
+
+    <div class="explanation-section">
+        <div class="explanation-card">
+            <div class="section-title">竞赛简介</div>
+            <div class="explanation-grid">
+                <div class="exp-main">
+                    <p><strong>🏅江苏省2024年、2025年省级赛事目录</strong></p>
+                    <p>
+                        五一数学建模竞赛是大学生自发组织的全国性数模竞赛，中科院院士李大潜为该项联赛题词、中国教育电视台两次专题报道，
+                        目前年参赛规模超万人，覆盖全国31个省、自治区和直辖市以及5个国家，多家知名媒体进行了广泛报道。
+                        2016年，该项竞赛纳入赢在徐州——中国徐州创新创业大赛分项赛事。
+                        2024年，江苏省高等教育学会发布《关于公布2024年全省普通高校本专科生学科竞赛省级赛事目录的通知》（苏高教会〔2024〕45 号），
+                        五一数学建模竞赛成功入选。
+                        2025年，江苏省高等教育学会发布《关于公布2025年全省普通高校本专科生学科竞赛省级赛事目录的通知》（苏高教会〔2025〕26 号），
+                        五一数学建模竞赛再次成功入选。
+                    </p>
+                    <p>
+                        2024年第二十一届五一数学建模竞赛共有5834支代表队报名参赛，收到有效论文4836篇。
+                        经过初评、网评、会评和复审，评选出一等奖246篇，二等奖752篇，三等奖1229篇，成功参赛奖2551篇。
+                    </p>
+                    <div class="verify-link">
+                        <a href="https://51mcm.cumt.edu.cn/33/5d/c23086a668509/page.htm"
+                           target="_blank" rel="noopener noreferrer">验证网站: https://51mcm.cumt.edu.cn
+                        </a>
+                    </div>
+                </div>
+                <div class="exp-side">
+                    <h4>竞赛组织单位</h4>
+                    <ul class="detail-list">
+                        <li><strong>主办单位</strong> 江苏省工业与应用数学学会（JSIAM） 徐州市工业与应用数学学会 中国矿业大学</li>
+                        <li><strong>承办单位</strong> 中国矿业大学大学生数学建模协会</li>
+                    </ul>
+
+                    <h4>获奖率</h4>
+                    <ul class="detail-list">
+                        <li>
+                            竞赛按组别分别设一等奖、二等奖、三等奖和成功参赛奖。
+                            各组一、二、三等奖数量不超过所在组别报名队数的5%、15%、25%；
+                            凡成功提交有效论文的参赛队均可获得成功参赛奖。
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="footnote">
+        <span>朱钦迟 · Personal Academic Portfolio © 2026 All Rights Reserved</span>
+    </div>
+</div>
+</body>
+</html>

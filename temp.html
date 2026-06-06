@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>作品展示：横版与竖版双样式 | A4竖版卡片三列</title>
+    <style>
+        /* ========== 原有样式：横版卡片（两列，完全保留，不做修改） ========== */
+        body {
+            font-family: "Georgia", "Times New Roman", serif;
+            background: #f8f9fa;
+            margin: 0;
+            padding: 60px 8%;
+            color: #222;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 50px;
+            border-bottom: 3px solid #222;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        /* 原有横板网格：两列 */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+        .cert-card {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all .35s ease;
+        }
+        .cert-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .cert-image {
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+        }
+        .cert-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            transition: .4s;
+        }
+        .cert-card:hover img {
+            transform: scale(1.05);
+        }
+        .cert-content {
+            padding: 25px;
+        }
+        .cert-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .cert-desc {
+            color: #555;
+            line-height: 1.8;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+        .cert-link {
+            display: inline-block;
+            padding: 10px 20px;
+            border: 2px solid #222;
+            border-radius: 30px;
+            text-decoration: none;
+            color: #222;
+            font-weight: 600;
+            transition: .3s;
+        }
+        .cert-link:hover {
+            background: #222;
+            color: white;
+        }
+
+        /* ========== 新增样式：竖版卡片（A4风格，电脑端一排三个） ========== */
+        /* 竖版区域额外间距 */
+        .vertical-section {
+            margin-top: 80px;  /* 与上方横板区域拉开距离 */
+        }
+        /* 竖版标题可使用与横版相同的视觉，但语义独立 */
+        .vertical-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 50px;
+            border-bottom: 3px solid #222;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        /* 竖版网格：电脑端默认三列，模拟A4竖版卡片排列 */
+        .vertical-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 35px;
+        }
+        /* 竖版卡片 —— 模拟A4纸张比例与优雅竖长结构 */
+        .v-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.35s cubic-bezier(0.2, 0, 0, 1);
+            display: flex;
+            flex-direction: column;
+            /* 模拟A4纸的优雅竖版感：设置轻微内阴影，类似纸张边缘 */
+            position: relative;
+            backdrop-filter: blur(0px);
+        }
+        .v-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
+        }
+        /* 图片容器：高度可控，确保竖版比例协调 (类似A4上半部分视觉) */
+        .v-card-image {
+            width: 100%;
+            overflow: hidden;
+            background-color: #eaeef3;
+            /* 让图片区域高度占卡片的40%左右，更具A4留白艺术 */
+            flex-shrink: 0;
+        }
+        .v-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+            display: block;
+        }
+        .v-card:hover .v-card-image img {
+            transform: scale(1.04);
+        }
+        /* 内容区域：下方留白解释区，充足舒适 */
+        .v-card-content {
+            padding: 22px 24px 28px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: white;
+        }
+        .v-card-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            color: #1e2a3a;
+        }
+        .v-card-desc {
+            color: #4a5568;
+            line-height: 1.65;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        /* 重用原链接样式，保持品牌统一，也可以单独微调 */
+        .v-card-link {
+            display: inline-block;
+            padding: 8px 22px;
+            border: 2px solid #222;
+            border-radius: 40px;
+            text-decoration: none;
+            color: #222;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.25s;
+            align-self: flex-start;
+            margin-top: 5px;
+            background: transparent;
+        }
+        .v-card-link:hover {
+            background: #222;
+            color: white;
+            border-color: #222;
+        }
+        /* 为了更加贴合A4纸张感觉，给卡片增加微妙的背景纹理和边缘细节 */
+        .v-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            border-radius: 20px;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03), inset 0 0 0 2px rgba(255,255,255,0.5);
+        }
+        /* 让竖版卡片更具质感，类似厚纸张 */
+        .v-card {
+            background: #fffdf9;
+        }
+
+        /* ---------- 响应式设计：保留横板原有媒体查询，同时为竖版添加响应三列→两列→一列 ---------- */
+        @media (max-width: 1100px) {
+            .vertical-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+        }
+        @media (max-width: 900px) {
+            /* 原有横版规则保持不变（原来媒体查询已将.cert-grid改为1列） */
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+            /* 竖版在平板/手机适中展示两列，更舒服 */
+            .vertical-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+        }
+        @media (max-width: 640px) {
+            .vertical-grid {
+                grid-template-columns: 1fr;
+            }
+            body {
+                padding: 40px 5%;
+            }
+            .section-title, .vertical-title {
+                font-size: 1.8rem;
+            }
+        }
+        /* 确保A4竖版卡片内部图片高度适应，避免过高过低 */
+        .v-card-image {
+            height: 200px;  /* 固定优雅高度，适合竖版卡片，类似A4上部展示区 */
+        }
+        @media (max-width: 480px) {
+            .v-card-image {
+                height: 180px;
+            }
+        }
+        /* 附加：为竖版添加更细腻的悬浮阴影 */
+        .v-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        /* 说明注释区：页面中增加版式区分线 */
+        .style-divider {
+            margin: 40px 0 20px;
+            height: 2px;
+            background: linear-gradient(90deg, #ccc, transparent);
+        }
+        hr {
+            margin: 30px 0;
+            border: 0;
+            height: 1px;
+            background: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ================= 横版卡片区域（原样式保留，两列布局） ================= -->
+<div>
+    <div class="section-title">📄 横版作品卡 · 经典两列</div>
+    <div class="cert-grid">
+        <!-- 横版卡片 1 -->
+        <div class="cert-card">
+            <div class="cert-image">
+                <img src="https://picsum.photos/id/1015/600/400" alt="横版作品示例1">
+            </div>
+            <div class="cert-content">
+                <div class="cert-title">山水·墨韵</div>
+                <div class="cert-desc">传统水墨意境与现代构成融合，展现东方留白之美。曾受邀参加上海艺术双年展。</div>
+                <a href="#" class="cert-link">了解详情 →</a>
+            </div>
+        </div>
+        <!-- 横版卡片 2 -->
+        <div class="cert-card">
+            <div class="cert-image">
+                <img src="https://picsum.photos/id/104/600/400" alt="横版作品示例2">
+            </div>
+            <div class="cert-content">
+                <div class="cert-title">数字重构·都市</div>
+                <div class="cert-desc">数字绘画结合参数化设计，解读未来城市景观。荣获2024数字艺术大奖。</div>
+                <a href="#" class="cert-link">了解详情 →</a>
+            </div>
+        </div>
+        <!-- 横版卡片 3 (原有grid自动两列，但第三张会自动换行，依然两列布局，美观) -->
+        <div class="cert-card">
+            <div class="cert-image">
+                <img src="https://picsum.photos/id/20/600/400" alt="横版作品示例3">
+            </div>
+            <div class="cert-content">
+                <div class="cert-title">流光·夜曲</div>
+                <div class="cert-desc">光影与建筑摄影的极致探索，记录城市脉动，被多个设计杂志收录。</div>
+                <a href="#" class="cert-link">了解详情 →</a>
+            </div>
+        </div>
+        <!-- 横版卡片 4 增加更多内容展示原版效果 -->
+        <div class="cert-card">
+            <div class="cert-image">
+                <img src="https://picsum.photos/id/169/600/400" alt="横版作品示例4">
+            </div>
+            <div class="cert-content">
+                <div class="cert-title">蔚蓝边界</div>
+                <div class="cert-desc">环保主题概念插画，获全球插画大赛优秀奖。用画笔唤醒海洋保护意识。</div>
+                <a href="#" class="cert-link">了解详情 →</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<!-- ================= 新增竖版卡片区域（A4大小风格，电脑端一排三个，下方包含解释） ================= -->
+<div class="vertical-section">
+    <div class="vertical-title">📌 竖版艺术卡 · A4纸本风格 | 三列展示</div>
+    <div class="vertical-grid">
+        <!-- 竖版卡片 1 具有完整图片、标题、解释、链接，下方解释区清晰 -->
+        <div class="v-card">
+            <div class="v-card-image">
+                <img src="https://picsum.photos/id/42/400/500" alt="竖版作品 灵境">
+            </div>
+            <div class="v-card-content">
+                <div class="v-card-title">灵境 · 四季诗卷</div>
+                <div class="v-card-desc">
+                    以细腻笔触描绘时间流动，融合东西方水彩技法。作品被多家私人美术馆收藏。<br>
+                    “A4竖幅定稿，下方详细阐释创作理念：每一季皆藏自然箴言。”
+                </div>
+                <a href="#" class="v-card-link">探索作品 →</a>
+            </div>
+        </div>
+        <!-- 竖版卡片 2 解释区更丰富 -->
+        <div class="v-card">
+            <div class="v-card-image">
+                <img src="https://picsum.photos/id/30/400/500" alt="竖版作品 重构记忆">
+            </div>
+            <div class="v-card-content">
+                <div class="v-card-title">重构记忆 · 碎片叙事</div>
+                <div class="v-card-desc">
+                    数字拼贴艺术，探索个体与集体记忆之间的关系。展览于威尼斯双年展平行展。<br>
+                    （下方阐释：通过老照片元素与当代符号并置，营造超现实语境，A4开本呈现细腻质感。）
+                </div>
+                <a href="#" class="v-card-link">探索作品 →</a>
+            </div>
+        </div>
+        <!-- 竖版卡片 3 -->
+        <div class="v-card">
+            <div class="v-card-image">
+                <img src="https://picsum.photos/id/22/400/500" alt="竖版作品 寂静回响">
+            </div>
+            <div class="v-card-content">
+                <div class="v-card-title">寂静回响 · 极简主义</div>
+                <div class="v-card-desc">
+                    黑白摄影与装置结合，探讨空间与沉默的力量。曾获年度摄影书奖。<br>
+                    下方解读：每一帧都是时间的切片，A4尺寸竖版排版，细节层次丰富。
+                </div>
+                <a href="#" class="v-card-link">探索作品 →</a>
+            </div>
+        </div>
+        <!-- 竖版卡片 4 为了展示三列超过三张时第二行依然整齐 -->
+        <div class="v-card">
+            <div class="v-card-image">
+                <img src="https://picsum.photos/id/155/400/500" alt="竖版作品 山隐">
+            </div>
+            <div class="v-card-content">
+                <div class="v-card-title">山隐 · 青绿新语</div>
+                <div class="v-card-desc">
+                    重彩山水实验，矿物颜料与数字输出结合。探索传统青绿的当代表达。<br>
+                    下方解析：A4竖版构图强化山峦纵向气势，纹理细节一丝不苟。
+                </div>
+                <a href="#" class="v-card-link">探索作品 →</a>
+            </div>
+        </div>
+        <!-- 竖版卡片 5 -->
+        <div class="v-card">
+            <div class="v-card-image">
+                <img src="https://picsum.photos/id/76/400/500" alt="竖版作品 都市流光">
+            </div>
+            <div class="v-card-content">
+                <div class="v-card-title">都市流光 · 夜间律动</div>
+                <div class="v-card-desc">
+                    长曝光摄影系列，抽象化城市光线轨迹。备受国际设计刊物好评。<br>
+                    下方文字：A4竖幅版式强调光线垂直流动感，带来沉浸视觉体验。
+                </div>
+                <a href="#" class="v-card-link">探索作品 →</a>
+            </div>
+        </div>
+        <!-- 竖版卡片 6 完美体现三列两行 -->
+        <div class="v-card">
+            <div class="v-card-image">
+                <img src="https://picsum.photos/id/96/400/500" alt="竖版作品 静物变奏">
+            </div>
+            <div class="v-card-content">
+                <div class="v-card-title">静物变奏 · 日常颂歌</div>
+                <div class="v-card-desc">
+                    油画与综合材料，重新定义平凡之物的诗意。获得青年艺术家驻留计划推荐。<br>
+                    下方阐释：以A4卡片载体强化生活瞬间的仪式感，温暖而克制。
+                </div>
+                <a href="#" class="v-card-link">探索作品 →</a>
+            </div>
+        </div>
+    </div>
+    <!-- 额外说明：竖版卡片均带有下方解释，且整体三列响应完美 -->
+    <div style="margin-top: 30px; font-size: 0.85rem; color: #5a6874; text-align: center; border-top: 1px dashed #ddd; padding-top: 20px;">
+        ✦ 竖版卡片模拟A4纸张比例（宽高比优雅），每张卡片均配有完整作品解读，电脑端默认三列排列，手机端自适应为一列 ✦
+    </div>
+</div>
+
+<!-- 额外设计说明：以下展示两种风格共存，且横板与竖板并未互相影响 -->
+<div style="height: 20px;"></div>
+<!-- 保留原有样式的所有功能，同时新增竖版区域完全独立，完美实现“两个都要” -->
+</body>
+</html>
