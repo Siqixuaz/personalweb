@@ -8,406 +8,144 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-            color: #1f2937;
-            line-height: 1.9;
-            font-size: 16px;
-            font-weight: 400;
+        * {margin: 0;padding: 0;box-sizing: border-box;scroll-behavior: smooth;}
+        body {font-family: 'Inter', sans-serif;background: #f8fafc;color: #1f2937;
+            line-height: 1.9;font-size: 16px;font-weight: 400;
         }
 
         /* 导航栏 */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(10, 15, 35, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 999;
+        nav {position: fixed;top: 0;width: 100%;background: rgba(10, 15, 35, 0.95);
+            backdrop-filter: blur(10px);z-index: 999;
         }
-
-        nav ul {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-            flex-wrap: wrap;
-        }
-
-        nav ul li {
-            margin: 1rem 1.2rem;
-        }
-
+        nav ul {display: flex;justify-content: center;list-style: none;flex-wrap: wrap;}
+        nav ul li {margin: 1rem 1.2rem;}
         nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            letter-spacing: 1.5px;
+            color: white;text-decoration: none;font-size: 14px;font-weight: 500;letter-spacing: 1.5px;
             text-transform: uppercase;
         }
-
-        nav a:hover {
-            color: #7dafff;
-        }
+        nav a:hover {color: #7dafff;}
 
         /* 英雄区 */
         .hero {
             height: 100vh;
             background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('mainbkgd.jpg');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
+            background-size: cover;background-position: center;
+            display: flex;align-items: center;justify-content: center;text-align: center;color: white;
         }
-
-        .hero-content img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid white;
-            margin-bottom: 20px;
+        .hero-content img {width: 200px;height: 200px;border-radius: 50%;object-fit: cover;
+            border: 5px solid white;margin-bottom: 20px;
         }
-
         .hero h1 {
-            font-family: 'Crimson Text', serif;
-            font-size: 4rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 0.5rem;
+            font-family: 'Crimson Text', serif;font-size: 4rem;font-weight: 700;letter-spacing: 2px;margin-bottom: 0.5rem;
         }
-
-        .hero h2 {
-            font-weight: 300;
-            letter-spacing: 3px;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .hero p {
-            max-width: 800px;
-            font-size: 1rem;
-            margin-top: 0.5rem;
-        }
+        .hero h2 {font-weight: 300;letter-spacing: 3px;margin-bottom: 1rem;font-size: 1.3rem;}
+        .hero p {max-width: 800px;font-size: 1rem;margin-top: 0.5rem;}
 
         /* 通用区块 */
-        section {
-            padding: 80px 8%;
-        }
-
-        .section-title {
-            font-size: 2.8rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-            text-align: center;
-            color: #0f172a;
-        }
+        section {padding: 80px 8%;}
+        .section-title {font-size: 2.8rem;font-weight: 700;margin-bottom: 3rem;text-align: center;color: #0f172a;}
 
         /* 卡片通用样式 */
-        .card {
-            background: white;
-            padding: 2.2rem;
-            border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(15,23,42,0.08);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
+        .card {background: white;padding: 2.2rem;border-radius: 16px;box-shadow: 0 8px 30px rgba(15,23,42,0.08);}
+        .card:hover {transform: translateY(-5px);}
 
         /* 教育折叠卡片 */
         .edu-card {
-            background: white;
-            padding: 1.5rem 2rem;
-            border-radius: 15px;
-            cursor: pointer;
-            margin-bottom: 1rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            transition: 0.2s;
+            background: white;padding: 1.5rem 2rem;border-radius: 15px;cursor: pointer;margin-bottom: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);transition: 0.2s;
         }
-
-        .edu-card:hover {
-            background: #f0f4ff;
-        }
-
+        .edu-card:hover {background: #f0f4ff;}
         .edu-detail {
-            max-height: 0;
-            overflow: hidden;
-            transition: 0.5s ease;
-            background: white;
-            padding: 0 2rem;
-            border-radius: 15px;
-            margin-bottom: 1.5rem;
+            max-height: 0;overflow: hidden;transition: 0.5s ease;background: white;padding: 0 2rem;
+            border-radius: 15px;margin-bottom: 1.5rem;
         }
-
-        .edu-detail.active {
-            max-height: 700px;
-            padding: 1.8rem 2rem;
-        }
-
-        .edu-detail img {
-            width: 100%;
-            border-radius: 15px;
-            margin-bottom: 1rem;
-        }
+        .edu-detail.active {max-height: 700px;padding: 1.8rem 2rem;}
+        .edu-detail img {width: 100%;border-radius: 15px;margin-bottom: 1rem;}
 
         /* 技能网格 */
-        .skills {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1.2rem;
-        }
-
-        .skill {
-            background: #102040;
-            color: white;
-            padding: 0.9rem;
-            border-radius: 40px;
-            text-align: center;
-            font-weight: 500;
-        }
+        .skills {display: grid;grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));gap: 1.2rem;}
+        .skill {background: #102040;color: white;padding: 0.9rem;border-radius: 40px;text-align: center;font-weight: 500;}
 
         /* 竞赛区域复用skills网格 + card内部 */
-        .competition-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 2rem;
-        }
-
+        .competition-grid {display: grid;grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));gap: 2rem;}
         .competition-card {
-            background: white;
-            border-radius: 20px;
-            text-align: center;
-            padding-bottom: 1.2rem;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-            transition: 0.3s;
+            background: white;border-radius: 20px;text-align: center;padding-bottom: 1.2rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);transition: 0.3s;
         }
-
-        .competition-card img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .competition-card:hover {
-            transform: translateY(-6px);
-        }
-
-        .competition-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 20px 20px 0 0;
-        }
-
-        .competition-card h3 {
-            margin: 1rem 0 0.5rem;
-            color: #102040;
-        }
+        .competition-card img {width: 100%;height: auto;display: block;}
+        .competition-card:hover {transform: translateY(-6px);}
+        .competition-card img {width: 100%;height: 200px;object-fit: cover;border-radius: 20px 20px 0 0;}
+        .competition-card h3 {margin: 1rem 0 0.5rem;color: #102040;}
 
         /* 实践经历（折叠 + 图片） */
         .exp-card {
-            background: white;
-            padding: 1.2rem 2rem;
-            margin-bottom: 10px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            cursor: pointer;
-            transition: 0.3s;
+            background: white;padding: 1.2rem 2rem;margin-bottom: 10px;border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);cursor: pointer;transition: 0.3s;
         }
 
-        .exp-card:hover {
-            background: #f0f4ff;
-        }
-
-        .exp-sub {
-            display: block;
-            color: #666;
-            font-size: 0.85rem;
-            margin-top: 6px;
-        }
-
+        .exp-card:hover {background: #f0f4ff;}
+        .exp-sub {display: block;color: #666;font-size: 0.85rem;margin-top: 6px;}
         .exp-detail {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            max-height: 0;
-            overflow: hidden;
-            transition: 0.5s ease;
-            margin-bottom: 1.8rem;
-            background: #fff;
-            border-radius: 18px;
-            padding: 0 1.8rem;
+            display: flex;flex-wrap: wrap;gap: 30px;max-height: 0;overflow: hidden;transition: 0.5s ease;
+            margin-bottom: 1.8rem;background: #fff;border-radius: 18px;padding: 0 1.8rem;
         }
 
-        .exp-detail.active {
-            max-height: 600px;
-            padding: 1.8rem;
-        }
-
-        .exp-detail-left img {
-            width: 220px;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 16px;
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
-        }
-
-        .exp-detail-right {
-            flex: 1;
-        }
+        .exp-detail.active {max-height: 600px;padding: 1.8rem;}
+        .exp-detail-left img {width: 220px;height: 300px;object-fit: cover;border-radius: 16px;box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);}
+        .exp-detail-right {flex: 1;}
 
         /* 奖状列表 */
-        .award-list {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .award-list li {
-            background: #eef2fa;
-            padding: 0.4rem 1.2rem;
-            border-radius: 30px;
-            font-size: 0.9rem;
-        }
-
-        footer {
-            background: #102040;
-            color: white;
-            padding: 2.5rem;
-            text-align: center;
-        }
-
-        footer p {
-            margin-top: 10px;
-            opacity: 0.8;
-        }
+        .award-list {list-style: none;display: flex;flex-wrap: wrap;gap: 1rem;}
+        .award-list li {background: #eef2fa;padding: 0.4rem 1.2rem;border-radius: 30px;font-size: 0.9rem;}
+        footer {background: #102040;color: white;padding: 2.5rem;text-align: center;}
+        footer p {margin-top: 10px;opacity: 0.8;}
 
         /* ========= 个人动态模块 (最新两条 + 更多按钮) ========= */
         .news-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 0.75rem;
+            display: flex;justify-content: space-between;align-items: baseline;flex-wrap: wrap;
+            margin-bottom: 2rem;border-bottom: 2px solid #e2e8f0;padding-bottom: 0.75rem;
         }
         .news-header h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #0f172a;
-            margin: 0;
-            font-family: 'Crimson Text', serif;
-        }
+            font-size: 2rem;font-weight: 700;color: #0f172a;margin: 0;font-family: 'Crimson Text', serif;}
         .more-btn {
-            background: transparent;
-            border: 1.5px solid #102040;
-            padding: 0.4rem 1.2rem;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #102040;
-            text-decoration: none;
-            transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            background: transparent;border: 1.5px solid #102040;padding: 0.4rem 1.2rem;border-radius: 40px;
+            font-size: 0.85rem;font-weight: 600;color: #102040;text-decoration: none;
+            transition: 0.2s;display: inline-flex;align-items: center;gap: 6px;
         }
-        .more-btn:hover {
-            background: #102040;
-            color: white;
-            border-color: #102040;
-        }
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
+        .more-btn:hover {background: #102040;color: white;border-color: #102040;}
+        .news-grid {display: grid;grid-template-columns: repeat(2, 1fr);gap: 2rem;}
         .news-item {
-            background: white;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            background: white;border-radius: 24px;overflow: hidden;box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
             transition: transform 0.25s ease, box-shadow 0.25s;
         }
-        .news-item:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.12);
-        }
-        .news-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        .news-content {
-            padding: 1.5rem;
-        }
+        .news-item:hover {transform: translateY(-6px);box-shadow: 0 20px 35px rgba(0, 0, 0, 0.12);}
+        .news-img {width: 100%;height: 200px;object-fit: cover;}
+        .news-content {padding: 1.5rem;}
         .news-date {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #5b6e8c;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
+            font-size: 0.75rem;text-transform: uppercase;letter-spacing: 1px;color: #5b6e8c;
+            font-weight: 500;margin-bottom: 0.5rem;
         }
         .news-content h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: #0f172a;
+            font-size: 1.3rem;font-weight: 700;margin-bottom: 0.5rem;color: #0f172a;
             font-family: 'Crimson Text', serif;
         }
-        .news-desc {
-            color: #334155;
-            font-size: 0.9rem;
-            line-height: 1.5;
+        .news-desc {color: #334155;font-size: 0.9rem;line-height: 1.5;}
+
+        @media (max-width: 768px) {  section {padding: 60px 5%;}
+            .hero h1 {font-size: 2.4rem;}
+            .exp-detail-left img {width: 100%;height: auto;max-height: 260px;}
+            .exp-detail {flex-direction: column;}
+            .news-grid {grid-template-columns: 1fr;gap: 1.5rem;}
+            .news-header {flex-direction: column;gap: 12px;align-items: flex-start;}
         }
-        @media (max-width: 768px) {
-            section {
-                padding: 60px 5%;
-            }
-            .hero h1 {
-                font-size: 2.4rem;
-            }
-            .exp-detail-left img {
-                width: 100%;
-                height: auto;
-                max-height: 260px;
-            }
-            .exp-detail {
-                flex-direction: column;
-            }
-            .news-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            .news-header {
-                flex-direction: column;
-                gap: 12px;
-                align-items: flex-start;
-            }
-        }
-        h1,h2,h3,h4,.section-title{
-            font-family: 'Crimson Text', serif;
-            letter-spacing: 0.5px;
-        }
+        h1,h2,h3,h4,.section-title{font-family: 'Crimson Text', serif;letter-spacing: 0.5px;}
     </style>
 </head>
-<body>
 
+<!-- ==================================== ======================================= -->
+<!-- ==================================== ======================================= -->
+
+<body>
 <nav>
     <ul>
         <li><a href='#about'>关于我</a></li>
@@ -491,7 +229,7 @@
     <a href="cert1.html" style="display: block; text-decoration: none; color: inherit;">
         <div class="news-grid">
             <div class="news-item">
-                <img class="news-img" src='cert4.jpg' alt="五一数学建模">
+                <img class="news-img" src='cert1.jpg' alt="五一数学建模">
                 <div class="news-content">
                     <div class="news-date">📅 2024年5月</div>
                     <h3><small>2024年（第二十一届）</small> 五一数学建模竞赛</h3>
@@ -556,19 +294,24 @@
 
 </section>
 
-<!-- 荣誉奖项 -->
+<!-- ================================== 荣誉奖项板块 ===================================== -->
+
 <section id='awards'>
-    <h2 class='section-title'>Honors & Awards</h2>
+    <div class="news-header">
+        <h2>Honors & Awards</h2>
+        <a href="honors.html" class="more-btn">荣誉详情 →</a>
+    </div>
     <div class='card'>
         <ul class="award-list">
-            <li>国家励志奖学金</li><li>校一等奖学金 ×1</li><li>校三等奖学金 ×3</li>
-            <li>百佳青年学生（连续两年）</li><li>优秀学生干部</li><li>优秀共青团员</li><li>优秀志愿者</li>
+            <li>国家励志奖学金</li><li>盐城工学院一等奖学金</li><li>盐城工学院百佳青年学生</li>
+            <li>盐城工学院优秀学生干部</li><li>盐城工学院优秀共青团员</li>
         </ul>
     </div>
 </section>
 
 
-<!-- 实践经历 (折叠图片+文本) -->
+<!-- ================================== 实习经历板块 ===================================== -->
+
 <section id='experience'>
     <h2 class='section-title'>Experience</h2>
 
