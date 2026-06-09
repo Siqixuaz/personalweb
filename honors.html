@@ -3,354 +3,307 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Honors & Awards</title>
+    <title>Honors & Awards · 获奖与荣誉</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * {margin: 0;padding: 0;box-sizing: border-box;}
 
         body {
-            font-family: "Georgia", "Times New Roman", serif;
-            background: #f8f9fa;
-            color: #222;
-            padding: 2.5rem 1.8rem;
+            font-family: "Georgia", "Times New Roman", "Palatino", serif;
+            background: linear-gradient(145deg, #f6f9fc 0%, #eef2f5 100%);
+            color: #1e2a3e;padding: 2.5rem 1.8rem;position: relative;min-height: 100vh;
         }
 
-        /* 主容器 */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
+        body::before {
+            content: "";position: fixed;top: 0;left: 0;width: 100%;height: 100%;
+            background-image: radial-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+            background-size: 28px 28px;pointer-events: none;z-index: 0;
         }
-
-        /* 主标题 */
+        .container {max-width: 1400px;margin: 0 auto;position: relative;z-index: 2;}
+        .hero {margin-bottom: 2.8rem;position: relative;}
         .main-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.4rem;
-            border-bottom: 3px solid #222;
-            display: inline-block;
-            padding-bottom: 10px;
-            letter-spacing: -0.3px;
-            color: #222;
+            font-size: 2.8rem;font-weight: 700;letter-spacing: -0.5px;
+            background: linear-gradient(120deg, #1f3b4c, #2c5a6e);background-clip: text;-webkit-background-clip: text;
+            color: transparent;border-bottom: 3px solid #bf9b6a;display: inline-block;padding-bottom: 12px;
+            margin-bottom: 0.2rem;
         }
-
         .subhead {
-            color: #555;
-            margin-bottom: 2.5rem;
-            font-size: 1rem;
-            margin-top: 0.75rem;
-            font-style: normal;
-            border-left: none;
-            padding-left: 0;
+            color: #4a6272;font-size: 1rem;margin-top: 0.8rem;border-left: 3px solid #bf9b6a;
+            padding-left: 1rem;font-weight: 400;opacity: 0.85;
         }
 
         /* 区块间隔 */
-        .section {
-            margin-bottom: 4rem;
-        }
-
+        .section {margin-bottom: 4rem;animation: fadeSlideUp 0.6s ease-out backwards;}
         .section-header {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            margin-bottom: 1.8rem;
-            border-bottom: 2px solid #e2e6ea;
-            padding-bottom: 0.6rem;
+            display: flex;align-items: baseline;justify-content: space-between;flex-wrap: wrap;margin-bottom: 1.8rem;
+            border-bottom: 1px solid rgba(160, 174, 186, 0.3);padding-bottom: 0.6rem;
         }
-
         .section-header h3 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #222;
-            letter-spacing: -0.2px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 1.8rem;font-weight: 600;letter-spacing: -0.2px;
+            background: linear-gradient(135deg, #2c3e50, #405d72);background-clip: text;
+            -webkit-background-clip: text;color: transparent;display: inline-flex;align-items: center;gap: 10px;
         }
-
         .section-badge {
-            background: #e9ecef;
-            padding: 4px 12px;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: #2c3e50;
+            background: rgba(191, 155, 106, 0.15);padding: 4px 14px;border-radius: 40px;font-size: 0.7rem;
+            font-weight: 500;color: #aa7c58;backdrop-filter: blur(2px);
         }
 
-        /* 横版证书网格：每排2个 */
-        .cert-grid-horizontal {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
+        /* 横版证书组：每行2个*/
+        .cert-grid-horizontal {display: flex;flex-wrap: wrap;gap: 2rem;align-items: flex-start;}
+        .cert-grid-horizontal > .cert-card {flex: 0 0 calc((100% - 2rem) / 2);}
 
-        /* 竖版证书网格：每排3个 */
-        .cert-grid-vertical {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
+        /* 竖版证书组：每行3个 */
+        .cert-grid-vertical {display: flex;flex-wrap: wrap;gap: 2rem;align-items: flex-start;}
+        .cert-grid-vertical > .cert-card {flex: 0 0 calc((100% - 4rem) / 3);}
 
-        /* 统一卡片样式 (原 awards 风格简洁卡片 + 细微阴影) */
+        /* 卡片样式 (优雅玻璃质感) */
         .cert-card {
-            background: white;
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.35s ease;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
+            background: rgba(255, 255, 255, 0.92);border-radius: 28px;overflow: hidden;
+            box-shadow: 0 15px 35px -12px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.02);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            display: flex;flex-direction: column;cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.6);height: auto;
         }
-
         .cert-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px);box-shadow: 0 28px 40px -16px rgba(0, 0, 0, 0.2);
+            background: white;border-color: rgba(191, 155, 106, 0.3);
         }
 
-        /* 图片容器：完全尊重原比例，width:100% height:auto，不裁切 */
+        /* 图片容器：默认隐藏，点击后优雅显示 */
         .cert-img {
-            width: 100%;
-            background: #f8f9fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 100%;background: #fdfaf7;display: none;align-items: center;justify-content: center;
+            overflow: hidden;border-bottom: 1px solid #efe6dc;
         }
-
+        .cert-card.show-image .cert-img {
+            display: flex;animation: imageReveal 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+        }
         .cert-img img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.4s ease;
+            width: 100%;height: auto;display: block;transition: transform 0.5s ease, opacity 0.4s ease;
+            opacity: 0;transform: scale(0.98);
         }
-
-        .cert-card:hover .cert-img img {
-            transform: scale(1.02);
+        .cert-card.show-image .cert-img img {
+            opacity: 1;transform: scale(1);transition: opacity 0.45s ease, transform 0.5s ease;
         }
+        .cert-card:hover .cert-img img {transform: scale(1.02);}
 
         /* 卡片内容区 */
-        .cert-info {
-            padding: 1.5rem 1.4rem 1.6rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
+        .cert-info {padding: 1.6rem 1.6rem 1.5rem;flex: 1;display: flex;flex-direction: column;}
         .cert-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            line-height: 1.4;
-            margin-bottom: 0.75rem;
-            color: #222;
+            font-size: 1.25rem;font-weight: 700;line-height: 1.4;margin-bottom: 0.8rem;
+            color: #1a2f3f;letter-spacing: -0.2px;
         }
-
         .cert-desc {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            color: #555;
-            margin-bottom: 1.2rem;
-            border-left: 2px solid #ddd;
-            padding-left: 0.75rem;
+            font-size: 0.85rem;line-height: 1.55;color: #5b6f7e;margin-bottom: 1.2rem;
+            border-left: 2px solid #e2cfb5;padding-left: 0.8rem;
         }
 
-        /* 按钮样式 (保留原 awards 中的 .cert1-link / .cert2-link 风格) */
+        /* 优雅提示条 */
+        .cert-hint {
+            font-size: 0.7rem;color: #b89774;margin-top: 0.6rem;display: inline-flex;align-items: center;gap: 6px;
+            background: rgba(191, 155, 106, 0.08);padding: 4px 10px;border-radius: 30px;width: fit-content;
+            transition: all 0.2s;
+        }
+        .cert-card:hover .cert-hint {background: rgba(191, 155, 106, 0.18);color: #8f6a45;}
+
+        /* 按钮样式 */
         .btn-view {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            background: transparent;
-            border: 2px solid #222;
-            color: #222;
-            font-weight: 600;
-            font-size: 0.85rem;
-            padding: 0.5rem 1.3rem;
-            border-radius: 30px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            width: fit-content;
-            background-color: white;
+            display: inline-flex;align-items: center;justify-content: center;gap: 8px;background: transparent;
+            border: 1.8px solid #2c5a6e;color: #2c5a6e;font-weight: 600;font-size: 0.8rem;padding: 0.45rem 1.4rem;
+            border-radius: 40px;text-decoration: none;transition: all 0.3s ease;width: fit-content;
+            background-color: white;margin-top: 0.2rem;
         }
-
         .btn-view:hover {
-            background: #222;
-            color: white;
-            border-color: #222;
+            background: #2c5a6e;color: white;border-color: #2c5a6e;transform: scale(1.02);
+            box-shadow: 0 6px 12px -8px rgba(44, 90, 110, 0.4);
         }
 
-        /* 响应式 */
+        /* 入场动画 */
+        @keyframes fadeSlideUp {
+            0% {opacity: 0;transform: translateY(20px);}
+            100% {opacity: 1;transform: translateY(0);}
+        }
+        @keyframes imageReveal {
+            0% {opacity: 0;transform: scaleY(0.96);}
+            100% {opacity: 1;transform: scaleY(1);}
+        }
+
+        /* 卡片交错入场 */
+        .cert-card {animation: fadeSlideUp 0.55s ease-out backwards;}
+
+        .cert-grid-horizontal .cert-card:nth-child(1) { animation-delay: 0.05s; }
+        .cert-grid-horizontal .cert-card:nth-child(2) { animation-delay: 0.1s; }
+        .cert-grid-horizontal .cert-card:nth-child(3) { animation-delay: 0.15s; }
+        .cert-grid-horizontal .cert-card:nth-child(4) { animation-delay: 0.2s; }
+        .cert-grid-horizontal .cert-card:nth-child(5) { animation-delay: 0.25s; }
+        .cert-grid-horizontal .cert-card:nth-child(6) { animation-delay: 0.3s; }
+        .cert-grid-vertical .cert-card:nth-child(1) { animation-delay: 0.2s; }
+        .cert-grid-vertical .cert-card:nth-child(2) { animation-delay: 0.25s; }
+        .cert-grid-vertical .cert-card:nth-child(3) { animation-delay: 0.3s; }
+
+        /* 底部脚注 */
+        .footer-note {
+            text-align: center;margin-top: 3rem;font-size: 0.78rem;color: #7d8e9f;border-top: 1px solid #dee4e9;
+            padding-top: 2rem;display: flex;justify-content: center;gap: 12px;flex-wrap: wrap;
+        }
+
+        /* 响应式：平板与手机适配 */
         @media (max-width: 950px) {
-            body {
-                padding: 1.8rem 1.2rem;
-            }
-            .cert-grid-horizontal {
-                gap: 1.5rem;
-            }
-            .cert-grid-vertical {
-                gap: 1.5rem;
-            }
+            body {padding: 1.8rem 1.2rem;}
+            .cert-grid-horizontal,
+            .cert-grid-vertical {gap: 1.5rem;}
+            .main-title {font-size: 2.2rem;}
+            .section-header h3 {font-size: 1.5rem;}
         }
 
         @media (max-width: 780px) {
-            .cert-grid-horizontal,
-            .cert-grid-vertical {
-                grid-template-columns: 1fr;
-            }
-            .main-title {
-                font-size: 2rem;
-            }
-            .section-header h3 {
-                font-size: 1.35rem;
-            }
-            .cert-info {
-                padding: 1.2rem;
-            }
+            /* 平板及以下：每个区块都变为单列 */
+            .cert-grid-horizontal > .cert-card,
+            .cert-grid-vertical > .cert-card {flex: 0 0 100%;}
+            .cert-info {padding: 1.3rem;}
+            .cert-title {font-size: 1.1rem;}
         }
 
         @media (max-width: 500px) {
-            .cert-title {
-                font-size: 1.05rem;
-            }
+            .main-title {font-size: 1.8rem;}
+            .hero {margin-bottom: 1.8rem;}
         }
 
-        .footer-note {
-            text-align: center;
-            margin-top: 2rem;
-            font-size: 0.8rem;
-            color: #6c757d;
-            border-top: 1px solid #e9ecef;
-            padding-top: 2rem;
-            font-family: inherit;
+        /* 图片加载失败的优雅降级 */
+        .cert-img {position: relative;}
+        .img-fallback {
+            position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);font-size: 0.85rem;
+            background: rgba(0,0,0,0.05);backdrop-filter: blur(2px);padding: 0.4rem 0.8rem;border-radius: 2rem;
+            color: #bf9b6a;white-space: nowrap;pointer-events: none;
         }
     </style>
 </head>
+
+<!-- ==================================== ======================================= -->
+<!-- ==================================== ======================================= -->
+
 <body>
 <div class="container">
-    <div class="main-title">Honors & Awards</div>
+    <div class="hero">
+        <div class="main-title">Academic Competitions</div>
+        <div class="subhead">到最后竟庆幸于夕阳仍留在身上 来不及讲 故事多跌宕</div>
+    </div>
 
-
-    <!-- 横版证书组：每行2个-->
+    <!-- 横版证书组：数学建模 & 综合荣誉（每行2个） -->
     <div class="section">
-        <div class="section-header"></div>
-        <div class="cert-grid-horizontal">
 
+        <div class="cert-grid-horizontal">
             <div class="cert-card">
-                <div class="cert-img">
-                    <img src="honor1.jpg" alt="国励">
-                </div>
                 <div class="cert-info">
                     <div class="cert-title">2023-2024学年度国家励志奖学金</div>
                     <div class="cert-desc">教育部 颁发 ， 江苏省教育厅 代章</div>
+                    <div class="cert-hint">️点击卡片显示/隐藏证书图片</div>
+                </div>
+                <div class="cert-img">
+                    <img src="honor1.jpg" alt="国励" loading="lazy">
                 </div>
             </div>
 
+
             <div class="cert-card">
-                <div class="cert-img">
-                    <img src="honor2.jpg" alt="校一等奖">
-                </div>
                 <div class="cert-info">
                     <div class="cert-title">2025年盐城工学院春学期一等奖学金</div>
                     <div class="cert-desc">盐城工学院 颁发</div>
+                    <div class="cert-hint">点击卡片显示/隐藏证书图片</div>
+                </div>
+                <div class="cert-img">
+                    <img src="honor2.jpg" alt="校一等" loading="lazy">
                 </div>
             </div>
 
+
             <div class="cert-card">
-                <div class="cert-img">
-                    <img src="honor3.jpg" alt="23百佳青年">
-                </div>
                 <div class="cert-info">
                     <div class="cert-title">2023年度盐城工学院“百佳青年”称号</div>
-                    <div class="cert-desc">盐城工学院 颁发</div>
+                    <div class="cert-desc">盐城工学院团委 颁发</div>
+                    <div class="cert-hint">点击卡片显示/隐藏证书图片</div>
+                </div>
+                <div class="cert-img">
+                    <img src="honor3.jpg" alt="23百佳青年" loading="lazy">
                 </div>
             </div>
 
+
             <div class="cert-card">
-                <div class="cert-img">
-                    <img src="honor4.jpg" alt="24百佳青年">
-                </div>
                 <div class="cert-info">
                     <div class="cert-title">2024年度盐城工学院“百佳青年”称号</div>
-                    <div class="cert-desc">盐城工学院 颁发</div>
+                    <div class="cert-desc">盐城工学院团委 颁发</div>
+                    <div class="cert-hint">点击卡片显示/隐藏证书图片</div>
+                </div>
+                <div class="cert-img">
+                    <img src="honor4.jpg" alt="24百佳青年" loading="lazy">
                 </div>
             </div>
 
+
             <div class="cert-card">
-                <div class="cert-img">
-                    <img src="honor5.jpg" alt="23-24优干">
-                </div>
                 <div class="cert-info">
                     <div class="cert-title">2023-2024学年度盐城工学院“优秀学生干部”称号</div>
                     <div class="cert-desc">盐城工学院 颁发</div>
+                    <div class="cert-hint">点击卡片显示/隐藏证书图片</div>
+                </div>
+                <div class="cert-img">
+                    <img src="honor5.jpg" alt="23-24优干" loading="lazy">
                 </div>
             </div>
 
+
             <div class="cert-card">
-                <div class="cert-img">
-                    <img src="honor6.jpg" alt="24-25优干">
-                </div>
                 <div class="cert-info">
                     <div class="cert-title">2024-2025学年度盐城工学院“优秀学生干部”称号</div>
                     <div class="cert-desc">盐城工学院 颁发</div>
+                    <div class="cert-hint">点击卡片显示/隐藏证书图片</div>
                 </div>
-            </div>
-
-            <div class="cert-card">
                 <div class="cert-img">
-                    <img src="honor7.jpg" alt="24优秀团员">
-                </div>
-                <div class="cert-info">
-                    <div class="cert-title">2024年度盐城工学院“优秀共青团员”称号</div>
-                    <div class="cert-desc">盐城工学院团委 颁发</div>
+                    <img src="honor5.jpg" alt="24-25优干" loading="lazy">
                 </div>
             </div>
 
-        </div>
-    </div>
-
-    <!-- 竖版证书组：每行3个-->
-    <div class="section">
-
-        <div class="cert-grid-vertical">
-
-            <div class="cert-card">
-                <div class="cert-img">
-                    <img src="cert7.jpg" alt="2023大英赛">
-                </div>
-                <div class="cert-info">
-                    <div class="cert-title">2023年全国大学生英语竞赛(NECCS)<br>C类二等奖</div>
-                    <div class="cert-desc">国际英语外语教师协会 中国英语外语教师协会 主办</div>
-                </div>
-            </div>
-
-            <div class="cert-card">
-                <div class="cert-img">
-                    <img src="cert8.jpg" alt="2023大翻赛">
-                </div>
-                <div class="cert-info">
-                    <div class="cert-title">2023年全国大学生英语翻译大赛(NETCCS)<br>C类三等奖</div>
-                    <div class="cert-desc">国际英语外语教师协会 中国英语外语教师协会 主办</div>
-                </div>
-            </div>
-
-
-            <div class="cert-card">
-                <div class="cert-img">
-                    <img src="cert9.jpg" alt="电工杯">
-                </div>
-                <div class="cert-info">
-                    <div class="cert-title">第十七届“电工杯”全国大学生数学建模竞赛<br>全国三等奖</div>
-                    <div class="cert-desc">江苏省翻译协会 主办</div>
-                </div>
-            </div>
         </div>
     </div>
 
     <div class="footer-note">
-        ✨ 朱钦迟 · Personal Academic Portfolio | © 2026 All Rights Reserved
+        ✨ 朱钦迟 · Personal Academic Portfolio | 厚德格致 笃学敏行
+        <span style="opacity:0.5;">© 2026 All Rights Reserved</span>
     </div>
 </div>
+
+<script>
+    (function() {
+        // 核心功能：点击卡片切换图片显示/隐藏，且不影响按钮跳转
+        const cards = document.querySelectorAll('.cert-card');
+
+        cards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                // 若点击区域在 .btn-view 内部，不触发图片切换，保持链接跳转
+                if (e.target.closest('.btn-view')) {
+                    return;
+                }
+                // 切换证书图片显示状态
+                card.classList.toggle('show-image');
+            });
+        });
+
+        // 图片加载失败时的优雅降级（不影响主体布局）
+        const allImages = document.querySelectorAll('.cert-img img');
+        allImages.forEach(img => {
+            img.addEventListener('error', function() {
+                // 避免重复添加 fallback 元素
+                if (this.parentElement.querySelector('.img-fallback')) return;
+                this.style.opacity = '0';
+                const fallbackSpan = document.createElement('span');
+                fallbackSpan.className = 'img-fallback';
+                fallbackSpan.innerText = '📄 证书预览';
+                this.parentElement.style.position = 'relative';
+                this.parentElement.appendChild(fallbackSpan);
+                // 可选：显示默认占位图标
+                this.alt = '证书图片待补充';
+            });
+        });
+    })();
+</script>
 </body>
 </html>
