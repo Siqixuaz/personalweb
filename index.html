@@ -31,41 +31,130 @@
             font-weight: 400;
         }
 
-        /* 导航栏 */
+        /* ========== 全新高级透明导航栏 ========== */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(10, 15, 35, 0.95);
-            backdrop-filter: blur(10px);
             z-index: 999;
+            padding-left: 80px;         /* Logo预留空间 */
+            transition: background 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1),
+            backdrop-filter 0.35s ease,
+            box-shadow 0.3s ease,
+            border-bottom-color 0.3s ease;
+            /* 初始：极致通透毛玻璃效果 */
+            background: rgba(15, 25, 45, 0.28);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: none;
         }
 
+        /* 滚动后：更显质感，提升可读性 */
+        nav.nav-scrolled {
+            background: rgba(8, 18, 32, 0.82);
+            backdrop-filter: blur(16px) saturate(200%);
+            -webkit-backdrop-filter: blur(16px) saturate(200%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Logo容器 */
+        nav .logo {
+            position: absolute;
+            left: 28px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            transition: opacity 0.25s ease, transform 0.2s;
+        }
+
+        nav .logo:hover {
+            opacity: 0.85;
+            transform: translateY(-50%) scale(0.98);
+        }
+
+        nav .logo img {
+            height: 38px;
+            width: auto;
+            display: block;
+            border-radius: 8px;
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));
+            transition: filter 0.2s;
+        }
+
+        /* 导航菜单 */
         nav ul {
             display: flex;
             justify-content: center;
             list-style: none;
             flex-wrap: wrap;
+            margin: 0;
+            padding: 0;
         }
 
         nav ul li {
-            margin: 1rem 1.2rem;
+            margin: 0.7rem 1.15rem;
         }
 
         nav a {
-            color: white;
+            color: rgba(255, 255, 255, 0.92);
             text-decoration: none;
-            font-size: 14px;
+            font-size: 0.85rem;
             font-weight: 500;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.2px;
             text-transform: uppercase;
+            transition: all 0.25s ease;
+            position: relative;
+            padding: 0.25rem 0;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 优雅下划线动画 */
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ffffff, #a0c4ff);
+            transition: width 0.3s cubic-bezier(0.22, 0.92, 0.4, 1);
+            border-radius: 4px;
+        }
+
+        nav a:hover::after {
+            width: 100%;
         }
 
         nav a:hover {
-            color: #7dafff;
+            color: white;
+            text-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
         }
 
-        /* 英雄区 */
+        /* 响应式微调 */
+        @media (max-width: 768px) {
+            nav {
+                padding-left: 60px;
+            }
+            nav .logo {
+                left: 16px;
+            }
+            nav .logo img {
+                height: 32px;
+            }
+            nav ul li {
+                margin: 0.6rem 0.8rem;
+            }
+            nav a {
+                font-size: 0.7rem;
+                letter-spacing: 0.8px;
+            }
+        }
+
+        /* 英雄区背景优化 (保证文字深邃) */
         .hero {
             height: 100vh;
             background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('mainbkgd.jpg');
@@ -85,6 +174,7 @@
             object-fit: cover;
             border: 5px solid white;
             margin-bottom: 20px;
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.3);
         }
 
         .hero h1 {
@@ -93,6 +183,7 @@
             font-weight: 700;
             letter-spacing: 2px;
             margin-bottom: 0.5rem;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .hero h2 {
@@ -100,12 +191,14 @@
             letter-spacing: 3px;
             margin-bottom: 1rem;
             font-size: 1.3rem;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
         }
 
         .hero p {
             max-width: 800px;
             font-size: 1rem;
             margin-top: 0.5rem;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
         }
 
         /* 通用区块 */
@@ -147,6 +240,7 @@
 
         .edu-card:hover {
             background: #f0f4ff;
+            transform: translateX(3px);
         }
 
         .edu-detail {
@@ -184,6 +278,11 @@
             border-radius: 40px;
             text-align: center;
             font-weight: 500;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .skill:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(16, 32, 64, 0.2);
         }
 
         /* 动态 & 竞赛通用网格（修复布局） */
@@ -242,17 +341,29 @@
 
         /* 更多按钮 (统一渐变风格) */
         .more-btn {
-            background: transparent;border: 1.5px solid #102040;padding: 0.4rem 1.2rem;border-radius: 40px;
-            font-size: 0.85rem;font-weight: 600;color: #102040;text-decoration: none;
-            transition: 0.2s;display: inline-flex;align-items: center;gap: 6px;
+            background: transparent;
+            border: 1.5px solid #102040;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #102040;
+            text-decoration: none;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .more-btn:hover {
+            background: #102040;
+            color: white;
+            border-color: #102040;
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(79, 140, 255, 0.35);
+            box-shadow: 0 8px 18px rgba(16, 32, 64, 0.2);
         }
 
-        /* 时间轴样式 (变量已修复，且相对于父容器正确定位) */
+        /* 时间轴样式 (高级质感) */
         .timeline {
             position: relative;
             margin-top: 40px;
@@ -266,6 +377,7 @@
             width: 3px;
             height: 100%;
             background: linear-gradient(to bottom, var(--accent), #9bbcff);
+            border-radius: 3px;
         }
 
         .timeline-item {
@@ -331,6 +443,11 @@
             padding: 0.4rem 1.2rem;
             border-radius: 30px;
             font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .award-list li:hover {
+            background: #dfe6f2;
+            transform: scale(1.02);
         }
 
         footer {
@@ -410,13 +527,12 @@
             color: inherit;
         }
 
-        /* 实践经历区域统一样式 (与其他section保持相同边距和标题风格) */
+        /* 实践经历区域统一样式 */
         .practice-section {
             padding: 80px 8%;
             background: transparent;
         }
 
-        /* ========== 仅调整实践经历模块字体，与其他模块（如个人动态、竞赛卡片）保持一致 ========== */
         #experience .time {
             font-size: 0.75rem;
             letter-spacing: 1px;
@@ -439,56 +555,23 @@
             color: #334155;
             font-weight: 400;
         }
-        /* 导航栏需要设置为相对定位，用于Logo绝对定位 */
-        nav {
-            position: relative;     /* 新增 */
-            padding-left: 80px;     /* 为Logo留出空间，防止遮挡菜单项 */
+
+        /* 滚动时导航栏专属类 */
+        nav.nav-scrolled {
+            background: rgba(8, 18, 32, 0.82);
+            backdrop-filter: blur(16px) saturate(200%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.25);
         }
 
-        /* Logo容器样式 - 绝对定位在左上角 */
-        nav .logo {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            transition: opacity 0.2s;
+        /* 微调logo在滚动后阴影 */
+        nav.nav-scrolled .logo img {
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
         }
-
-        nav .logo img {
-            height: 36px;           /* 控制Logo高度 */
-            width: auto;
-            display: block;
-            border-radius: 6px;     /* 可选圆角 */
-        }
-
-        /* 鼠标悬停效果 */
-        nav .logo:hover {
-            opacity: 0.85;
-        }
-
-        /* 手机端适配：缩小Logo和左侧留白 */
-        @media (max-width: 768px) {
-            nav {
-                padding-left: 60px;
-            }
-            nav .logo {
-                left: 12px;
-            }
-            nav .logo img {
-                height: 30px;
-            }
-        }
-
     </style>
 </head>
 
-
-
 <body>
-<nav>
+<nav id="mainNav">
     <a href="#" class="logo">
         <img src="logo.png" alt="Logo">
     </a>
@@ -528,14 +611,13 @@
     </div>
 </section>
 
-<!-- 个人动态区域 (修复网格结构，每个卡片独立链接) -->
+<!-- 个人动态区域 -->
 <section id='news'>
     <div class="news-header">
         <h2>Personal News</h2>
         <a href="news.html" class="more-btn">更多动态 →</a>
     </div>
     <div class="news-grid">
-        <!-- 动态1: 毕业季相册 -->
         <a href="2601.html" class="card-link" style="display: block; text-decoration: none; color: inherit;">
             <div class="news-item">
                 <img class="news-img" src='grad3.jpg' alt="UTM Exchange">
@@ -546,7 +628,6 @@
                 </div>
             </div>
         </a>
-        <!-- 动态2: 华中杯数学建模全国一等奖 -->
         <a href="cert2.html" class="card-link" style="display: block; text-decoration: none; color: inherit;">
             <div class="news-item">
                 <img class="news-img" src='cert2.jpg' alt="华中杯数学建模">
@@ -567,7 +648,6 @@
         <a href="awards.html" class="more-btn">更多获奖 →</a>
     </div>
     <div class="news-grid">
-        <!-- 竞赛1: 五一数学建模 -->
         <a href="cert1.html" class="card-link" style="display: block; text-decoration: none; color: inherit;">
             <div class="news-item">
                 <img class="news-img" src='cert1.jpg' alt="五一数学建模">
@@ -578,7 +658,6 @@
                 </div>
             </div>
         </a>
-        <!-- 竞赛2: 华中杯数学建模全国一等奖 -->
         <a href="cert2.html" class="card-link" style="display: block; text-decoration: none; color: inherit;">
             <div class="news-item">
                 <img class="news-img" src='cert2.jpg' alt="华中杯数学建模">
@@ -646,7 +725,7 @@
     </div>
 </section>
 
-<!-- 实践经历区域：修复宽度 + 添加标题，与其他板块视觉一致 -->
+<!-- 实践经历区域 -->
 <section id='experience' class="practice-section">
     <div class="news-header">
         <h2>Experience</h2>
@@ -710,13 +789,12 @@
         if (el) el.classList.toggle('active');
     }
 
-    // 保留原有 toggleExp 以防外部遗留调用 (无实际效果但不报错)
     function toggleExp(id) {
         const detail = document.getElementById(id);
         if (detail) detail.classList.toggle('active');
     }
 
-    // 时间轴滚动动画 (保持与之前一致的显示效果)
+    // 时间轴滚动动画
     function handleTimelineScroll() {
         const items = document.querySelectorAll('.timeline-item');
         const windowHeight = window.innerHeight;
@@ -725,17 +803,31 @@
             if (rect.top < windowHeight - 80) {
                 item.classList.add('show');
             } else {
-                // 可选不移除 保持显示后不再消失
                 if (item.classList.contains('show')) return;
             }
         });
     }
 
-    window.addEventListener('scroll', handleTimelineScroll);
+    // ========== 导航栏滚动渐变（高级透明效果） ==========
+    function updateNavOnScroll() {
+        const nav = document.getElementById('mainNav');
+        if (!nav) return;
+        if (window.scrollY > 20) {
+            nav.classList.add('nav-scrolled');
+        } else {
+            nav.classList.remove('nav-scrolled');
+        }
+    }
+
+    // 统一滚动监听（性能友好）
+    window.addEventListener('scroll', () => {
+        handleTimelineScroll();
+        updateNavOnScroll();
+    });
     window.addEventListener('resize', handleTimelineScroll);
     document.addEventListener('DOMContentLoaded', () => {
         handleTimelineScroll();
-        // 确保所有时间轴项初始状态检查一次
+        updateNavOnScroll();   // 确保初始状态正确（如果页面刷新位置不在顶部）
     });
 </script>
 </body>
