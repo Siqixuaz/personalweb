@@ -439,6 +439,49 @@
             color: #334155;
             font-weight: 400;
         }
+        /* 导航栏需要设置为相对定位，用于Logo绝对定位 */
+        nav {
+            position: relative;     /* 新增 */
+            padding-left: 80px;     /* 为Logo留出空间，防止遮挡菜单项 */
+        }
+
+        /* Logo容器样式 - 绝对定位在左上角 */
+        nav .logo {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            transition: opacity 0.2s;
+        }
+
+        nav .logo img {
+            height: 36px;           /* 控制Logo高度 */
+            width: auto;
+            display: block;
+            border-radius: 6px;     /* 可选圆角 */
+        }
+
+        /* 鼠标悬停效果 */
+        nav .logo:hover {
+            opacity: 0.85;
+        }
+
+        /* 手机端适配：缩小Logo和左侧留白 */
+        @media (max-width: 768px) {
+            nav {
+                padding-left: 60px;
+            }
+            nav .logo {
+                left: 12px;
+            }
+            nav .logo img {
+                height: 30px;
+            }
+        }
+
     </style>
 </head>
 
@@ -446,6 +489,9 @@
 
 <body>
 <nav>
+    <a href="#" class="logo">
+        <img src="logo.png" alt="Logo">
+    </a>
     <ul>
         <li><a href='#about'>关于我</a></li>
         <li><a href='#news'>个人动态</a></li>
